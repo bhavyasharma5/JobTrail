@@ -251,6 +251,7 @@ const Wrapper = styled.section`
     font-size: 1.1rem;
     font-weight: 600;
     background: linear-gradient(90deg, var(--primary-600) 0%, var(--primary-700) 100%);
+    color: white;
     border: none;
     position: relative;
     overflow: hidden;
@@ -270,6 +271,10 @@ const Wrapper = styled.section`
     
     &:hover::before {
       left: 100%;
+    }
+    
+    &:hover {
+      color: white;
     }
   }
   

@@ -196,6 +196,7 @@ ul {
 
 .btn:hover {
   background: var(--primary-700);
+  color: var(--white);
   transform: translateY(-3px);
   box-shadow: var(--shadow-3);
 }
