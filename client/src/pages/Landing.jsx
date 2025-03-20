@@ -31,7 +31,6 @@ const Landing = () => {
           </div>
         </div>
         <div className='image-container'>
-          <div className='purple-overlay'></div>
           <img src={main} alt='job hunt' className='img main-img' />
         </div>
       </div>
