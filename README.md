@@ -1,63 +1,77 @@
 # JobTrail
 
-JobTrail is a modern job application tracking system that helps job seekers organize their job search process efficiently. With a sleek UI and powerful features, JobTrail makes it easy to manage applications, track progress, and stay on top of interview schedules.
+A comprehensive job tracking application designed to help job seekers organize their job search process.
 
 ## Features
 
-- **Centralized Tracking**: Keep all your applications in one place with powerful organization tools
-- **Visual Analytics**: Gain insights into your job search with customizable reports and metrics
-- **Deadline Reminders**: Get timely reminders for follow-ups, interviews, and important dates
-- **Progress Tracking**: Monitor your success rates and optimize your application strategy
+- Track job applications in one central location
+- Visual analytics to gain insights on your job search
+- Organize applications by status (pending, interview, declined, etc.)
+- Set reminders for important deadlines
+- Modern and intuitive user interface
 
-## Tech Stack
+## Database Setup
 
-- **Frontend**: React, Styled Components, React Icons, React Router
-- **Backend**: Node.js, Express.js
-- **Database**: MongoDB (with in-memory option for demo)
-- **Development**: Vite, Nodemon, Concurrently
+To set up the MongoDB Atlas database for JobTrail:
 
-## Getting Started
+1. **Create a MongoDB Atlas Account**
+   - Go to [MongoDB Atlas](https://www.mongodb.com/cloud/atlas/register)
+   - Sign up for a free account
 
-### Prerequisites
+2. **Create a Free Tier Cluster (M0 Sandbox)**
+   - After logging in, click "Build a Database"
+   - Choose the free tier option (M0 Sandbox)
+   - Select your preferred cloud provider (AWS, Google Cloud, or Azure)
+   - Choose a region closest to your location
+   - Name your cluster (e.g., "JobTrail")
+   - Click "Create Cluster"
 
-- Node.js (v14 or higher)
-- npm or yarn
+3. **Configure Database Access**
+   - In the left sidebar, go to "Database Access"
+   - Click "Add New Database User"
+   - Create a username and password (save these securely)
+   - Set privileges to "Read and write to any database"
+   - Click "Add User"
 
-### Installation
+4. **Configure Network Access**
+   - In the left sidebar, go to "Network Access"
+   - Click "Add IP Address"
+   - Choose "Allow Access from Anywhere" for development
+   - Or add your specific IP address for better security
+   - Click "Confirm"
 
-1. Clone the repository
+5. **Get Your Connection String**
+   - Go back to your cluster and click "Connect"
+   - Select "Connect your application"
+   - Copy the connection string
+   - It will look like: `mongodb+srv://<username>:<password>@<cluster-url>/jobtrail?retryWrites=true&w=majority`
+   - Replace `<username>` and `<password>` with your database credentials
+   - Replace `<database-name>` with "jobtrail"
+
+6. **Update Environment Variables**
+   - Open the `.env` file in the root of the project
+   - Replace the placeholders in the `MONGO_URL` with your actual connection string
+
+## Installation
+
 ```bash
-git clone https://github.com/yourusername/JobTrail.git
-cd JobTrail
-```
+# Install dependencies for server and client
+npm run setup-project
 
-2. Install dependencies
-```bash
-npm install
-cd client && npm install
-cd ..
-```
-
-3. Set up environment variables
-Create a `.env` file in the root directory with the following variables:
-```
-PORT=5100
-MONGO_URL=your_mongodb_connection_string
-JWT_SECRET=your_jwt_secret
-JWT_LIFETIME=1d
-```
-
-### Running the Application
-
-#### Development Mode
-```bash
+# Run the development server
 npm run dev
-```
 
-#### Demo Mode (with in-memory MongoDB)
-```bash
+# Run the demo server (with in-memory database)
 npm run demo
 ```
+
+## Technologies Used
+
+- MongoDB Atlas
+- Express.js
+- React.js
+- Node.js
+- Styled Components
 
 ## Project Structure
 
@@ -65,7 +79,6 @@ npm run demo
 JobTrail/
 ├── client/                  # Frontend React application
 │   ├── public/              # Static files
-│   ├── src/                 # Source files
 │   │   ├── assets/          # Images and styling
 │   │   ├── components/      # Reusable components
 │   │   ├── context/         # React context providers
