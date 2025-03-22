@@ -49,18 +49,13 @@ const Wrapper = styled.section`
     position: relative;
     z-index: 1;
     
-    /* Add a subtle card-like appearance */
-    background: var(--background-secondary-color);
-    border-radius: var(--border-radius-lg);
-    box-shadow: var(--shadow-2);
-    margin-top: 1rem;
-    margin-bottom: 1rem;
-    padding: 2rem;
-    
-    /* Ensure content doesn't touch edges on smaller screens */
-    @media (max-width: 768px) {
+    @media (max-width: 991px) {
+      background: var(--background-secondary-color);
+      border-radius: var(--border-radius);
       padding: 1.5rem;
-      width: 95vw;
+      margin-top: 1rem;
+      margin-bottom: 1rem;
+      box-shadow: var(--shadow-2);
     }
   }
   
@@ -76,9 +71,10 @@ const Wrapper = styled.section`
       padding: 2rem;
       margin-top: 1.5rem;
       margin-bottom: 1.5rem;
-      min-height: calc(100vh - 3rem);
-      max-height: calc(100vh - 3rem);
-      overflow-y: auto;
+      min-height: calc(100vh - 6rem);
+      border-radius: var(--border-radius-lg);
+      background: var(--background-secondary-color);
+      box-shadow: var(--shadow-2);
       
       /* Custom scrollbar for the dashboard content */
       &::-webkit-scrollbar {

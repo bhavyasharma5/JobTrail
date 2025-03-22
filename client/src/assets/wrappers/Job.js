@@ -7,15 +7,12 @@ const Wrapper = styled.article`
   transition: all 0.3s ease;
   position: relative;
   overflow: hidden;
+  display: grid;
+  grid-template-rows: 1fr auto;
   
   &:hover {
     box-shadow: var(--shadow-4);
     transform: translateY(-5px);
-    
-    .action-btn {
-      opacity: 1;
-      transform: translateX(0);
-    }
   }
   
   &::before {
@@ -34,9 +31,14 @@ const Wrapper = styled.article`
     opacity: 1;
     height: 7px;
   }
-
-  .main-content {
+  
+  header {
     padding: 1.5rem;
+    border-bottom: 1px solid var(--grey-100);
+    display: grid;
+    grid-template-columns: auto 1fr;
+    align-items: center;
+    gap: 1.5rem;
   }
   
   .main-icon {
@@ -46,9 +48,12 @@ const Wrapper = styled.article`
     place-items: center;
     background: var(--primary-50);
     border-radius: var(--border-radius);
-    margin-right: 2rem;
     transition: all 0.3s;
     border: 1px solid var(--primary-100);
+    font-size: 1.5rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    color: var(--primary-700);
     
     &:hover {
       background: var(--primary-100);
@@ -71,32 +76,20 @@ const Wrapper = styled.article`
       color: var(--grey-600);
       letter-spacing: 0;
       line-height: 1.5;
+      text-transform: capitalize;
     }
-  }
-  
-  .job-details {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-    margin-bottom: 1rem;
   }
   
   .content {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 1.5rem;
-    align-items: center;
-    margin-bottom: 1rem;
-    
-    @media (min-width: 576px) {
-      grid-template-columns: auto 1fr;
-    }
+    padding: 1.5rem;
   }
   
   .content-center {
     display: grid;
     grid-template-columns: 1fr;
     row-gap: 1rem;
+    margin-top: 1rem;
+    margin-bottom: 1.5rem;
     
     @media (min-width: 576px) {
       grid-template-columns: repeat(2, 1fr);
@@ -120,6 +113,8 @@ const Wrapper = styled.article`
     margin-top: 0.5rem;
     border: 1px solid var(--primary-200);
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+    width: auto;
+    text-transform: capitalize;
     
     &.pending {
       background: var(--yellow-light);
@@ -140,65 +135,59 @@ const Wrapper = styled.article`
     }
   }
   
-  .job-footer {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: space-between;
-    background: var(--background-color);
-    margin-top: 1rem;
-    padding: 0.75rem 1.5rem;
-    border-top: 1px solid var(--grey-100);
-  }
-  
   .actions {
     display: flex;
     align-items: center;
     gap: 0.75rem;
+    margin-top: 1.5rem;
   }
   
-  .action-btn {
+  .edit-btn,
+  .delete-btn {
     background: transparent;
-    border: none;
-    cursor: pointer;
-    color: var(--text-color);
     letter-spacing: var(--letterSpacing);
-    padding: 0.375rem 0.5rem;
-    border-radius: var(--border-radius);
+    cursor: pointer;
+    height: 36px;
+    font-size: 0.85rem;
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 0.25rem;
+    gap: 0.5rem;
+    padding: 0 1rem;
+    border-radius: var(--border-radius);
     transition: all 0.3s ease;
-    opacity: 0.85;
-    transform: translateX(5px);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+  }
+  
+  .edit-btn {
+    background: var(--green-light);
+    color: var(--green-dark);
+    border: 1px solid var(--green-light);
     
-    &.edit-btn {
-      color: var(--green-dark);
-      background: var(--green-light);
-      
-      &:hover {
-        background: var(--green-dark);
-        color: var(--white);
-        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-      }
+    &:hover {
+      background: var(--green-dark);
+      color: var(--white);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     }
+  }
+  
+  .delete-btn {
+    background: var(--red-light);
+    color: var(--red-dark);
+    border: 1px solid var(--red-light);
     
-    &.delete-btn {
-      color: var(--red-dark);
-      background: var(--red-light);
-      
-      &:hover {
-        background: var(--red-dark);
-        color: var(--white);
-        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-      }
+    &:hover {
+      background: var(--red-dark);
+      color: var(--white);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     }
   }
   
   .job-icon {
     font-size: 1rem;
-    margin-right: 0.25rem;
+    margin-right: 0.5rem;
     display: flex;
     align-items: center;
     
@@ -212,6 +201,12 @@ const Wrapper = styled.article`
     letter-spacing: 0;
     font-style: italic;
     font-weight: 500;
+  }
+  
+  .job-footer {
+    background: var(--background-color);
+    border-top: 1px solid var(--grey-100);
+    padding: 0.75rem 1.5rem;
   }
   
   .date {

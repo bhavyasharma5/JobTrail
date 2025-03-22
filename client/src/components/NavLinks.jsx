@@ -1,6 +1,7 @@
 import { useDashboardContext } from '../pages/DashboardLayout';
 import links from '../utils/links';
 import { NavLink } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
 const NavLinks = ({ isBigSidebar }) => {
   const { toggleSidebar, user } = useDashboardContext();
@@ -26,4 +27,9 @@ const NavLinks = ({ isBigSidebar }) => {
     </div>
   );
 };
+
+NavLinks.propTypes = {
+  isBigSidebar: PropTypes.bool,
+};
+
 export default NavLinks;

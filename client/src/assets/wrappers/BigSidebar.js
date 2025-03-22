@@ -10,8 +10,6 @@ const Wrapper = styled.aside`
     min-height: 100vh;
     height: 100%;
     width: 250px;
-    margin-left: -250px;
-    transition: all 0.4s ease-in-out;
     z-index: 99;
     
     .sidebar-container {
@@ -25,6 +23,13 @@ const Wrapper = styled.aside`
       display: flex;
       flex-direction: column;
       justify-content: space-between;
+      margin-left: -250px;
+      transition: all 0.4s ease-in-out;
+    }
+    
+    .show-sidebar {
+      margin-left: 0;
+      box-shadow: 1px 0 5px rgba(0, 0, 0, 0.05);
     }
     
     .content {
