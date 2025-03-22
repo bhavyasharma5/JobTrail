@@ -13,7 +13,7 @@ const Wrapper = styled.article`
   
   &:hover {
     box-shadow: var(--shadow-3);
-    transform: translateY(-2px);
+    transform: translateY(-3px);
   }
   
   &::before {
@@ -21,8 +21,8 @@ const Wrapper = styled.article`
     position: absolute;
     top: 0;
     left: 0;
-    width: 3px;
-    height: 100%;
+    width: 100%;
+    height: 4px;
     background: var(--primary-500);
     opacity: 0.8;
   }
@@ -37,18 +37,19 @@ const Wrapper = styled.article`
   }
   
   .main-icon {
-    width: 54px;
-    height: 54px;
+    width: 60px;
+    height: 60px;
     display: grid;
     place-items: center;
     background: var(--primary-100);
     border-radius: var(--border-radius);
-    font-size: 1.4rem;
+    font-size: 1.5rem;
     font-weight: 600;
     text-transform: uppercase;
     color: var(--primary-700);
     margin-right: 2rem;
     transition: var(--transition);
+    border: 1px solid var(--primary-200);
   }
   
   .info {
@@ -92,16 +93,30 @@ const Wrapper = styled.article`
   }
   
   .status {
-    border-radius: var(--border-radius-full);
+    border-radius: var(--border-radius);
     font-weight: 500;
     text-transform: capitalize;
     letter-spacing: var(--letter-spacing);
     text-align: center;
-    width: 110px;
-    height: 30px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    width: auto;
+    display: inline-block;
+    padding: 0.25rem 0.75rem;
+    font-size: 0.85rem;
+    
+    &.pending {
+      background: var(--yellow-light);
+      color: var(--yellow-dark);
+    }
+    
+    &.interview {
+      background: var(--primary-100);
+      color: var(--primary-700);
+    }
+    
+    &.declined {
+      background: var(--red-light);
+      color: var(--red-dark);
+    }
   }
   
   .actions {
@@ -120,7 +135,7 @@ const Wrapper = styled.article`
     justify-content: center;
     gap: 0.5rem;
     padding: 0 1rem;
-    border-radius: var(--border-radius-full);
+    border-radius: var(--border-radius);
     transition: var(--transition);
     cursor: pointer;
   }
@@ -140,6 +155,7 @@ const Wrapper = styled.article`
   .delete-btn {
     background: var(--red-light);
     color: var(--red-dark);
+    border: 1px solid transparent;
     
     &:hover {
       background: var(--red-dark);

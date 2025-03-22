@@ -5,9 +5,8 @@ const Wrapper = styled.nav`
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: var(--shadow-1);
+  box-shadow: var(--shadow-2);
   background: var(--background-secondary-color);
-  border-bottom: 1px solid var(--grey-100);
   transition: var(--transition);
   position: relative;
   z-index: 10;
@@ -17,27 +16,24 @@ const Wrapper = styled.nav`
     width: 90vw;
     align-items: center;
     justify-content: space-between;
-    padding: 0.75rem 0;
+    padding: 1rem 0;
   }
   
   .toggle-btn {
     background: transparent;
     border-color: transparent;
-    font-size: 1.4rem;
-    color: var(--primary-600);
+    font-size: 1.5rem;
+    color: var(--primary-500);
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
     transition: var(--transition);
-    padding: 0.4rem;
-    border-radius: var(--border-radius-full);
-    width: 40px;
-    height: 40px;
+    padding: 0.375rem;
+    border-radius: var(--border-radius);
   }
   
   .toggle-btn:hover {
-    background: var(--primary-50);
     color: var(--primary-700);
     transform: rotate(90deg);
   }
@@ -45,13 +41,9 @@ const Wrapper = styled.nav`
   .logo-text {
     display: none;
     font-weight: 700;
-    font-size: 1.75rem;
-    color: var(--primary-700);
-    letter-spacing: 0.5px;
-    
-    span {
-      color: var(--grey-900);
-    }
+    font-size: 1.8rem;
+    color: var(--primary-600);
+    letter-spacing: 1px;
   }
   
   .logo {
@@ -63,7 +55,7 @@ const Wrapper = styled.nav`
   .btn-container {
     display: flex;
     align-items: center;
-    gap: 1.5rem;
+    gap: 1rem;
   }
   
   .user-btn {
