@@ -10,15 +10,22 @@ import { checkDefaultTheme } from '../App';
 const userQuery = {
   queryKey: ['user'],
   queryFn: async () => {
-    const { data } = await customFetch.get('/users/current-user');
-    return data;
+    try {
+      const { data } = await customFetch.get('/users/current-user');
+      return data;
+    } catch (error) {
+      console.error('Failed to fetch user:', error);
+      throw error;
+    }
   },
 };
 
 export const loader = (queryClient) => async () => {
   try {
-    return await queryClient.ensureQueryData(userQuery);
+    const data = await queryClient.ensureQueryData(userQuery);
+    return data;
   } catch (error) {
+    console.error('Dashboard loader error:', error);
     return redirect('/');
   }
 };
@@ -26,7 +33,7 @@ export const loader = (queryClient) => async () => {
 const DashboardContext = createContext();
 
 const DashboardLayout = ({ queryClient }) => {
-  const { user } = useQuery(userQuery).data;
+  const { user } = useQuery(userQuery).data || {};
   const navigate = useNavigate();
   const navigation = useNavigation();
   const isPageLoading = navigation.state === 'loading';
@@ -68,6 +75,17 @@ const DashboardLayout = ({ queryClient }) => {
     if (!isAuthError) return;
     logoutUser();
   }, [isAuthError]);
+
+  // If no user is found, redirect to login
+  useEffect(() => {
+    if (!user && !isPageLoading) {
+      navigate('/');
+    }
+  }, [user, isPageLoading]);
+
+  if (!user) {
+    return <Loading />;
+  }
 
   return (
     <DashboardContext.Provider

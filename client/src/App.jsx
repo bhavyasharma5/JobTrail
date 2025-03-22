@@ -46,6 +46,9 @@ const queryClient = new QueryClient({
   },
 });
 
+// Make sure to clear any query cache issues
+queryClient.invalidateQueries({ queryKey: ['user'] });
+
 const router = createBrowserRouter([
   {
     path: '/',

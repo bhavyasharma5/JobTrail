@@ -22,9 +22,9 @@ const Wrapper = styled.article`
     top: 0;
     left: 0;
     width: 100%;
-    height: 4px;
+    height: 6px;
     background: var(--primary-500);
-    opacity: 0.8;
+    opacity: 0.9;
   }
   
   header {
@@ -37,8 +37,8 @@ const Wrapper = styled.article`
   }
   
   .main-icon {
-    width: 60px;
-    height: 60px;
+    width: 65px;
+    height: 65px;
     display: grid;
     place-items: center;
     background: var(--primary-100);
