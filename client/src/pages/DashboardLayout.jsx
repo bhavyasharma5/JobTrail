@@ -1,98 +1,52 @@
-import { Outlet, redirect, useNavigate, useNavigation } from 'react-router-dom';
+import { Outlet } from 'react-router-dom';
 import Wrapper from '../assets/wrappers/Dashboard';
-import { BigSidebar, Navbar, SmallSidebar, Loading } from '../components';
-import { createContext, useContext, useEffect, useState } from 'react';
-import customFetch from '../utils/customFetch';
-import { toast } from 'react-toastify';
-import { useQuery } from '@tanstack/react-query';
-import { checkDefaultTheme } from '../App';
-const userQuery = {
-  queryKey: ['user'],
-  queryFn: async () => {
-    const { data } = await customFetch.get('/users/current-user');
-    return data;
-  },
-};
+import { BigSidebar, Navbar, SmallSidebar } from '../components';
+import { useSelector, useDispatch } from 'react-redux';
+import { useEffect } from 'react';
+import { getAllJobs } from '../features/job/jobSlice';
+import { getCurrentUser } from '../features/user/userSlice';
+import Loading from '../components/Loading';
 
-export const loader = (queryClient) => async () => {
-  try {
-    return await queryClient.ensureQueryData(userQuery);
-  } catch (error) {
-    return redirect('/');
-  }
-};
-
-const DashboardContext = createContext();
-
-const DashboardLayout = ({ queryClient }) => {
-  const { user } = useQuery(userQuery).data;
-  const navigate = useNavigate();
-  const navigation = useNavigation();
-  const isPageLoading = navigation.state === 'loading';
-  const [showSidebar, setShowSidebar] = useState(false);
-  const [isDarkTheme, setIsDarkTheme] = useState(checkDefaultTheme());
-  const [isAuthError, setIsAuthError] = useState(false);
-
-  const toggleDarkTheme = () => {
-    const newDarkTheme = !isDarkTheme;
-    setIsDarkTheme(newDarkTheme);
-    document.body.classList.toggle('dark-theme', newDarkTheme);
-    localStorage.setItem('darkTheme', newDarkTheme);
-  };
-
-  const toggleSidebar = () => {
-    setShowSidebar(!showSidebar);
-  };
-
-  const logoutUser = async () => {
-    navigate('/');
-    await customFetch.get('/auth/logout');
-    queryClient.invalidateQueries();
-    toast.success('Logging out...');
-  };
-
-  customFetch.interceptors.response.use(
-    (response) => {
-      return response;
-    },
-    (error) => {
-      if (error?.response?.status === 401) {
-        setIsAuthError(true);
-      }
-      return Promise.reject(error);
-    }
-  );
+const DashboardLayout = () => {
+  const { user, isLoading, userLoading } = useSelector((store) => store.user);
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    if (!isAuthError) return;
-    logoutUser();
-  }, [isAuthError]);
+    if (!user) {
+      dispatch(getCurrentUser());
+    }
+  }, [user, dispatch]);
 
-  return (
-    <DashboardContext.Provider
-      value={{
-        user,
-        showSidebar,
-        isDarkTheme,
-        toggleDarkTheme,
-        toggleSidebar,
-        logoutUser,
-      }}
-    >
+  useEffect(() => {
+    if (user) {
+      dispatch(getAllJobs());
+    }
+  }, [user, dispatch]);
+
+  if (userLoading) {
+    return (
       <Wrapper>
         <main className='dashboard'>
-          <SmallSidebar />
-          <BigSidebar />
-          <div>
-            <Navbar />
-            <div className='dashboard-page'>
-              {isPageLoading ? <Loading /> : <Outlet context={{ user }} />}
-            </div>
-          </div>
+          <Loading center />
         </main>
       </Wrapper>
-    </DashboardContext.Provider>
+    );
+  }
+
+  return (
+    <Wrapper>
+      <main className='dashboard'>
+        <SmallSidebar />
+        <BigSidebar />
+        <div>
+          <Navbar />
+          <div className='dashboard-page'>
+            {isLoading ? <Loading center /> : <Outlet />}
+          </div>
+        </div>
+      </main>
+    </Wrapper>
   );
 };
-export const useDashboardContext = () => useContext(DashboardContext);
+
 export default DashboardLayout;
