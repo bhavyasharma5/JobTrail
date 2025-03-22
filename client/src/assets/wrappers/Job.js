@@ -2,17 +2,18 @@ import styled from 'styled-components';
 
 const Wrapper = styled.article`
   background: var(--background-secondary-color);
-  border-radius: var(--border-radius-lg);
-  box-shadow: var(--shadow-2);
-  transition: all 0.3s ease;
-  position: relative;
-  overflow: hidden;
+  border-radius: var(--border-radius);
   display: grid;
   grid-template-rows: 1fr auto;
+  box-shadow: var(--shadow-2);
+  transition: var(--transition);
+  overflow: hidden;
+  border: 1px solid var(--grey-100);
+  position: relative;
   
   &:hover {
-    box-shadow: var(--shadow-4);
-    transform: translateY(-5px);
+    box-shadow: var(--shadow-3);
+    transform: translateY(-2px);
   }
   
   &::before {
@@ -20,133 +21,98 @@ const Wrapper = styled.article`
     position: absolute;
     top: 0;
     left: 0;
-    width: 100%;
-    height: 5px;
+    width: 3px;
+    height: 100%;
     background: var(--primary-500);
-    opacity: 0.3;
-    transition: all 0.3s ease;
-  }
-  
-  &:hover::before {
-    opacity: 1;
-    height: 7px;
+    opacity: 0.8;
   }
   
   header {
-    padding: 1.5rem;
+    padding: 1.25rem 1.75rem;
     border-bottom: 1px solid var(--grey-100);
     display: grid;
     grid-template-columns: auto 1fr;
     align-items: center;
-    gap: 1.5rem;
+    position: relative;
   }
   
   .main-icon {
-    width: 60px;
-    height: 60px;
+    width: 54px;
+    height: 54px;
     display: grid;
     place-items: center;
-    background: var(--primary-50);
+    background: var(--primary-100);
     border-radius: var(--border-radius);
-    transition: all 0.3s;
-    border: 1px solid var(--primary-100);
-    font-size: 1.5rem;
+    font-size: 1.4rem;
     font-weight: 600;
     text-transform: uppercase;
     color: var(--primary-700);
-    
-    &:hover {
-      background: var(--primary-100);
-      transform: scale(1.05);
-    }
+    margin-right: 2rem;
+    transition: var(--transition);
   }
   
   .info {
     h5 {
       margin-bottom: 0.5rem;
       font-weight: 600;
-      color: var(--text-color);
-      letter-spacing: 0;
-      line-height: 1.3;
-      transition: all 0.2s ease;
+      color: var(--grey-900);
+      font-size: 1.1rem;
     }
     
     p {
       margin: 0;
-      color: var(--grey-600);
-      letter-spacing: 0;
-      line-height: 1.5;
       text-transform: capitalize;
+      letter-spacing: var(--letter-spacing);
+      color: var(--grey-500);
+      font-size: 0.9rem;
     }
   }
   
   .content {
-    padding: 1.5rem;
+    padding: 1.25rem 1.75rem;
+    background: var(--white);
   }
   
   .content-center {
     display: grid;
-    grid-template-columns: 1fr;
-    row-gap: 1rem;
     margin-top: 1rem;
     margin-bottom: 1.5rem;
+    grid-template-columns: 1fr;
+    row-gap: 1.2rem;
+    column-gap: 1.5rem;
+    align-items: center;
     
     @media (min-width: 576px) {
-      grid-template-columns: repeat(2, 1fr);
-      column-gap: 1rem;
+      grid-template-columns: 1fr 1fr;
     }
     
     @media (min-width: 992px) {
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: 1fr 1fr 1fr;
     }
   }
   
   .status {
-    display: inline-block;
-    background: var(--primary-50);
-    color: var(--primary-700);
-    border-radius: var(--border-radius);
-    padding: 0.25rem 0.75rem;
-    font-size: 0.85rem;
-    font-weight: 600;
-    letter-spacing: 0.5px;
-    margin-top: 0.5rem;
-    border: 1px solid var(--primary-200);
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
-    width: auto;
+    border-radius: var(--border-radius-full);
+    font-weight: 500;
     text-transform: capitalize;
-    
-    &.pending {
-      background: var(--yellow-light);
-      color: var(--yellow-dark);
-      border-color: var(--yellow-light);
-    }
-    
-    &.interview {
-      background: var(--primary-50);
-      color: var(--primary-700);
-      border-color: var(--primary-100);
-    }
-    
-    &.declined {
-      background: var(--red-light);
-      color: var(--red-dark);
-      border-color: var(--red-light);
-    }
+    letter-spacing: var(--letter-spacing);
+    text-align: center;
+    width: 110px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
   
   .actions {
+    margin-top: 1.5rem;
     display: flex;
     align-items: center;
-    gap: 0.75rem;
-    margin-top: 1.5rem;
+    gap: 0.8rem;
   }
   
   .edit-btn,
   .delete-btn {
-    background: transparent;
-    letter-spacing: var(--letterSpacing);
-    cursor: pointer;
     height: 36px;
     font-size: 0.85rem;
     display: flex;
@@ -154,64 +120,32 @@ const Wrapper = styled.article`
     justify-content: center;
     gap: 0.5rem;
     padding: 0 1rem;
-    border-radius: var(--border-radius);
-    transition: all 0.3s ease;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+    border-radius: var(--border-radius-full);
+    transition: var(--transition);
+    cursor: pointer;
   }
   
   .edit-btn {
-    background: var(--green-light);
-    color: var(--green-dark);
-    border: 1px solid var(--green-light);
+    background: var(--primary-50);
+    color: var(--primary-700);
+    border: 1px solid var(--primary-100);
     
     &:hover {
-      background: var(--green-dark);
-      color: var(--white);
+      background: var(--primary-100);
+      color: var(--primary-800);
       transform: translateY(-2px);
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     }
   }
   
   .delete-btn {
     background: var(--red-light);
     color: var(--red-dark);
-    border: 1px solid var(--red-light);
     
     &:hover {
       background: var(--red-dark);
       color: var(--white);
       transform: translateY(-2px);
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     }
-  }
-  
-  .job-icon {
-    font-size: 1rem;
-    margin-right: 0.5rem;
-    display: flex;
-    align-items: center;
-    
-    svg {
-      color: var(--grey-500);
-    }
-  }
-  
-  .company {
-    color: var(--green-dark);
-    letter-spacing: 0;
-    font-style: italic;
-    font-weight: 500;
-  }
-  
-  .job-footer {
-    background: var(--background-color);
-    border-top: 1px solid var(--grey-100);
-    padding: 0.75rem 1.5rem;
-  }
-  
-  .date {
-    color: var(--grey-500);
-    font-size: 0.875rem;
   }
 `;
 
