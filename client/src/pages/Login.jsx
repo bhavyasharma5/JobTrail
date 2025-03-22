@@ -4,7 +4,7 @@ import { FormRow, Logo, SubmitBtn } from '../components';
 import customFetch from '../utils/customFetch';
 import { toast } from 'react-toastify';
 import { useState } from 'react';
-import { FaUserAlt, FaChartLine, FaCalendarCheck, FaEye, FaEyeSlash, FaCheckCircle } from 'react-icons/fa';
+import { FaUserAlt, FaChartLine, FaCalendarCheck, FaEye, FaEyeSlash, FaCheckCircle, FaLongArrowAltRight } from 'react-icons/fa';
 
 export const action =
   (queryClient) =>
@@ -47,26 +47,31 @@ const Login = () => {
   return (
     <Wrapper>
       <div className="info-side">
+        <div className="decoration-circle"></div>
+        <div className="decoration-circle"></div>
+        
         <div className="info-content">
           <h2>Welcome Back!</h2>
-          <p>Track your job applications, stay organized, and land your dream job with JobTrail.</p>
+          <p>
+            Track your job applications, stay organized, and land your dream job with JobTrail&apos;s intuitive dashboard.
+          </p>
           
           <div className="features">
             <div className="feature-item">
               <FaUserAlt />
-              <span>Personalized job tracking dashboard</span>
+              <span>Personalized job tracking dashboard with real-time updates</span>
             </div>
             <div className="feature-item">
               <FaChartLine />
-              <span>Visualize your application progress</span>
+              <span>Visual analytics to gain insights on your application progress</span>
             </div>
             <div className="feature-item">
               <FaCalendarCheck />
-              <span>Never miss important deadlines</span>
+              <span>Smart reminders so you never miss important deadlines</span>
             </div>
             <div className="feature-item">
               <FaCheckCircle />
-              <span>Stay organized throughout your job search</span>
+              <span>Organized workflow to streamline your entire job search</span>
             </div>
           </div>
         </div>
@@ -76,7 +81,7 @@ const Login = () => {
         <Form method='post' className='form'>
           <Logo />
           <h4 className="form-title">Welcome Back</h4>
-          <p className="form-subtitle">Enter your credentials to access your account</p>
+          <p className="form-subtitle">Sign in to continue your job search journey</p>
           
           <div className="input-container">
             <FormRow type='email' name='email' labelText="Email Address" />
@@ -101,11 +106,11 @@ const Login = () => {
           </div>
           
           <button type='button' className='btn btn-block' onClick={loginDemoUser}>
-            Explore the App
+            Explore Demo <FaLongArrowAltRight style={{ marginLeft: '8px' }} />
           </button>
           
           <p>
-            Don't have an account?
+            Don&apos;t have an account?
             <Link to='/register' className='member-btn'>
               Create Account
             </Link>
