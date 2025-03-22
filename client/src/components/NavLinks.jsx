@@ -1,32 +1,21 @@
-import { useMemo } from 'react';
-import { NavLink } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useDashboardContext } from '../pages/DashboardLayout';
 import links from '../utils/links';
+import { NavLink } from 'react-router-dom';
 
-const NavLinks = ({ toggleSidebar }) => {
-  const { user } = useSelector((store) => store.user);
-
-  const navLinks = useMemo(() => {
-    return links.filter((link) => {
-      const { path } = link;
-      // Filter out admin links for non-admin users
-      if (path === 'admin' && user.role !== 'admin') {
-        return false;
-      }
-      return true;
-    });
-  }, [user.role]);
-
+const NavLinks = ({ isBigSidebar }) => {
+  const { toggleSidebar, user } = useDashboardContext();
   return (
     <div className='nav-links'>
-      {navLinks.map((link) => {
+      {links.map((link) => {
         const { text, path, icon } = link;
+        const { role } = user;
+        if (path === 'admin' && role !== 'admin') return;
         return (
           <NavLink
             to={path}
             key={path}
-            onClick={toggleSidebar}
             className={({ isActive }) => isActive ? 'nav-link active' : 'nav-link'}
+            onClick={isBigSidebar ? null : toggleSidebar}
             end
           >
             <span className='icon'>{icon}</span>
@@ -37,5 +26,4 @@ const NavLinks = ({ toggleSidebar }) => {
     </div>
   );
 };
-
 export default NavLinks;

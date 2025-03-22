@@ -1,36 +1,23 @@
+import Wrapper from '../assets/wrappers/BigSidebar';
 import NavLinks from './NavLinks';
 import Logo from './Logo';
-import Wrapper from '../assets/wrappers/BigSidebar';
-import { useSelector, useDispatch } from 'react-redux';
-import { IoLogOutOutline } from 'react-icons/io5';
-import { logoutUser } from '../features/user/userSlice';
+import { useDashboardContext } from '../pages/DashboardLayout';
 
 const BigSidebar = () => {
-  const { isSidebarOpen } = useSelector((store) => store.user);
-  const dispatch = useDispatch();
-
-  const handleLogout = () => {
-    dispatch(logoutUser('Logging out...'));
-  };
+  const { showSidebar } = useDashboardContext();
 
   return (
     <Wrapper>
       <div
         className={
-          isSidebarOpen ? 'sidebar-container show-sidebar' : 'sidebar-container'
+          showSidebar ? 'sidebar-container ' : 'sidebar-container show-sidebar'
         }
       >
         <div className='content'>
           <header className='header'>
             <Logo />
           </header>
-          <NavLinks />
-          <div className='logout-area'>
-            <button type='button' className='logout-btn' onClick={handleLogout}>
-              <IoLogOutOutline className='icon' />
-              logout
-            </button>
-          </div>
+          <NavLinks isBigSidebar />
         </div>
       </div>
     </Wrapper>
