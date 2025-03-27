@@ -1,4 +1,4 @@
-import { Link, Form, redirect } from 'react-router-dom';
+import { Link, Form } from 'react-router-dom';
 import Wrapper from '../assets/wrappers/RegisterAndLoginPage';
 import { FormRow, Logo, SubmitBtn } from '../components';
 import customFetch from '../utils/customFetch';
@@ -13,11 +13,13 @@ export const action =
     const data = Object.fromEntries(formData);
     try {
       await customFetch.post('/auth/login', data);
-      queryClient.invalidateQueries();
+      queryClient.invalidateQueries(['user']);
       toast.success('Login successful');
-      return redirect('/dashboard');
+      // Use window.location for a more reliable redirect
+      window.location.href = '/dashboard';
+      return null; // Return null to prevent redirect from react-router
     } catch (error) {
-      toast.error(error?.response?.data?.msg);
+      toast.error(error?.response?.data?.msg || 'An error occurred during login');
       return error;
     }
   };

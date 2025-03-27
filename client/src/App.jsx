@@ -1,6 +1,5 @@
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 
 import {
   HomeLayout,
@@ -15,6 +14,7 @@ import {
   Profile,
   Admin,
   EditJob,
+  Dashboard,
 } from './pages';
 
 import { action as registerAction } from './pages/Register';
@@ -76,6 +76,10 @@ const router = createBrowserRouter([
         children: [
           {
             index: true,
+            element: <Dashboard />,
+          },
+          {
+            path: 'add-job',
             element: <AddJob />,
             action: addJobAction(queryClient),
           },
@@ -118,8 +122,8 @@ const App = () => {
   return (
     <QueryClientProvider client={queryClient}>
       <RouterProvider router={router} />
-      <ReactQueryDevtools initialIsOpen={false} />
     </QueryClientProvider>
   );
 };
+
 export default App;

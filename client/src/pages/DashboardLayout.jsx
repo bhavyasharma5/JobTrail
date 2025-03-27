@@ -1,11 +1,12 @@
 import { Outlet, redirect, useNavigate, useNavigation } from 'react-router-dom';
-import Wrapper from '../assets/wrappers/Dashboard';
 import { BigSidebar, Navbar, SmallSidebar, Loading } from '../components';
 import { createContext, useContext, useEffect, useState } from 'react';
 import customFetch from '../utils/customFetch';
 import { toast } from 'react-toastify';
 import { useQuery } from '@tanstack/react-query';
 import { checkDefaultTheme } from '../App';
+import styled from 'styled-components';
+import PropTypes from 'prop-types';
 
 const userQuery = {
   queryKey: ['user'],
@@ -15,7 +16,7 @@ const userQuery = {
       return data;
     } catch (error) {
       console.error('Failed to fetch user:', error);
-      throw error;
+      return { user: null };
     }
   },
 };
@@ -33,7 +34,8 @@ export const loader = (queryClient) => async () => {
 const DashboardContext = createContext();
 
 const DashboardLayout = ({ queryClient }) => {
-  const { user } = useQuery(userQuery).data || {};
+  const { data, isLoading, isError } = useQuery(userQuery);
+  const user = data?.user || null;
   const navigate = useNavigate();
   const navigation = useNavigation();
   const isPageLoading = navigation.state === 'loading';
@@ -76,12 +78,16 @@ const DashboardLayout = ({ queryClient }) => {
     logoutUser();
   }, [isAuthError]);
 
-  // If no user is found, redirect to login
   useEffect(() => {
-    if (!user && !isPageLoading) {
+    if (!user && !isLoading && (isAuthError || isError)) {
+      console.log('No authenticated user found, redirecting to login');
       navigate('/');
     }
-  }, [user, isPageLoading]);
+  }, [user, isLoading, isAuthError, isError, navigate]);
+
+  if (isLoading || isPageLoading) {
+    return <Loading />;
+  }
 
   if (!user) {
     return <Loading />;
@@ -105,7 +111,7 @@ const DashboardLayout = ({ queryClient }) => {
           <div>
             <Navbar />
             <div className='dashboard-page'>
-              {isPageLoading ? <Loading /> : <Outlet context={{ user }} />}
+              <Outlet context={{ user }} />
             </div>
           </div>
         </main>
@@ -113,5 +119,60 @@ const DashboardLayout = ({ queryClient }) => {
     </DashboardContext.Provider>
   );
 };
+
+const Wrapper = styled.div`
+  .dashboard {
+    display: grid;
+    grid-template-columns: 1fr;
+    background: var(--background-color);
+    transition: var(--transition);
+    position: relative;
+    
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+      width: 75%;
+      background: linear-gradient(135deg, transparent 0%, var(--primary-50) 100%);
+      opacity: 0.5;
+      z-index: 0;
+      pointer-events: none;
+    }
+  }
+  
+  .dashboard-page {
+    width: 90vw;
+    margin: 0 auto;
+    padding: 2rem 0;
+    transition: var(--transition);
+    position: relative;
+    z-index: 1;
+  }
+  
+  @media (min-width: 992px) {
+    .dashboard {
+      grid-template-columns: auto 1fr;
+    }
+    
+    .dashboard-page {
+      width: 90%;
+      margin-left: 2rem;
+      padding: 2rem;
+      margin-top: 1.5rem;
+      margin-bottom: 1.5rem;
+      background: var(--background-secondary-color);
+      border-radius: var(--border-radius);
+      box-shadow: var(--shadow-1);
+    }
+  }
+`;
+
 export const useDashboardContext = () => useContext(DashboardContext);
+
+DashboardLayout.propTypes = {
+  queryClient: PropTypes.object.isRequired,
+};
+
 export default DashboardLayout;
