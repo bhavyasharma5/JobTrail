@@ -27,7 +27,7 @@ const AddJob = () => {
 
   return (
     <Wrapper>
-      <Form method='post' className='form'>
+      <Form method='post' className='form form-no-box'>
         <h4 className='form-title'>Add New Job</h4>
         <div className='form-center'>
           <div className="form-row">

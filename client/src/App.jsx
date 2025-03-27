@@ -28,15 +28,17 @@ import { action as deleteJobAction } from './pages/DeleteJob';
 import { loader as adminLoader } from './pages/Admin';
 import { action as profileAction } from './pages/Profile';
 import { loader as statsLoader } from './pages/Stats';
+import { loader as dashboardPageLoader } from './pages/Dashboard';
 import ErrorElement from './components/ErrorElement';
 
 export const checkDefaultTheme = () => {
   const isDarkTheme = localStorage.getItem('darkTheme') === 'true';
-  document.body.classList.toggle('dark-theme', isDarkTheme);
+  // Don't apply theme globally on initial load - will be handled by components
   return isDarkTheme;
 };
 
-checkDefaultTheme();
+// Don't apply dark theme on app load
+// checkDefaultTheme();
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -77,6 +79,8 @@ const router = createBrowserRouter([
           {
             index: true,
             element: <Dashboard />,
+            loader: dashboardPageLoader(queryClient),
+            errorElement: <ErrorElement />,
           },
           {
             path: 'add-job',

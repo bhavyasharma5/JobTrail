@@ -72,10 +72,10 @@ html {
   --shadow-4: 0 12px 24px rgba(0, 0, 0, 0.08);
   
   /* DARK MODE */
-  --dark-mode-bg-color: #0f172a;
-  --dark-mode-text-color: #f8fafc;
-  --dark-mode-bg-secondary-color: #1e293b;
-  --dark-mode-text-secondary-color: #cbd5e1;
+  --dark-mode-bg-color: #111827;
+  --dark-mode-text-color: #f9fafb;
+  --dark-mode-bg-secondary-color: #1f2937;
+  --dark-mode-text-secondary-color: #e5e7eb;
 
   --background-color: var(--grey-50);
   --text-color: var(--grey-900);
@@ -88,6 +88,18 @@ html {
   --background-color: var(--dark-mode-bg-color);
   --text-secondary-color: var(--dark-mode-text-secondary-color);
   --background-secondary-color: var(--dark-mode-bg-secondary-color);
+  --shadow-1: 0 1px 3px rgba(0, 0, 0, 0.3);
+  --shadow-2: 0 4px 6px rgba(0, 0, 0, 0.4);
+  --shadow-3: 0 8px 16px rgba(0, 0, 0, 0.5);
+  --shadow-4: 0 12px 24px rgba(0, 0, 0, 0.6);
+}
+
+.dark-theme h1, 
+.dark-theme h2, 
+.dark-theme h3, 
+.dark-theme h4, 
+.dark-theme h5 {
+  color: var(--dark-mode-text-color);
 }
 
 body {
@@ -392,4 +404,68 @@ button:disabled {
 .declined {
   background: var(--red-light);
   color: var(--red-dark);
+}
+
+/* Dark theme select styles */
+.dark-select {
+  background-color: var(--dark-mode-bg-secondary-color) !important;
+  color: var(--dark-mode-text-color) !important;
+  border-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+.dark-option {
+  background-color: var(--dark-mode-bg-secondary-color) !important;
+  color: var(--dark-mode-text-color) !important;
+}
+
+.dark-title {
+  color: var(--dark-mode-text-color) !important;
+  text-transform: capitalize;
+}
+
+/* Dark theme nav links */
+.dark-link {
+  color: var(--dark-mode-text-color) !important;
+}
+
+.dark-icon {
+  color: var(--dark-mode-text-color) !important;
+}
+
+.dark-link.active,
+.dark-link:hover {
+  color: var(--primary-300) !important;
+}
+
+.dark-link.active .dark-icon,
+.dark-link:hover .dark-icon {
+  color: var(--primary-300) !important;
+}
+
+/* Fix for Firefox */
+@-moz-document url-prefix() {
+  .dark-select {
+    color: var(--dark-mode-text-color) !important;
+    background-color: var(--dark-mode-bg-secondary-color) !important;
+  }
+  
+  .dark-select option {
+    color: var(--dark-mode-text-color) !important;
+    background-color: var(--dark-mode-bg-secondary-color) !important;
+  }
+}
+
+/* Fix for Safari */
+@media not all and (min-resolution:.001dpcm) {
+  @supports (-webkit-appearance:none) {
+    .dark-select {
+      color: var(--dark-mode-text-color) !important;
+      background-color: var(--dark-mode-bg-secondary-color) !important;
+    }
+    
+    .dark-select option {
+      color: var(--dark-mode-text-color) !important;
+      background-color: var(--dark-mode-bg-secondary-color) !important;
+    }
+  }
 }

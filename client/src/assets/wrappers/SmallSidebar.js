@@ -57,7 +57,7 @@ const Wrapper = styled.aside`
   .nav-link {
     display: flex;
     align-items: center;
-    color: var(--grey-700);
+    color: var(--text-secondary-color);
     padding: 1rem;
     text-transform: capitalize;
     transition: var(--transition);
@@ -77,6 +77,32 @@ const Wrapper = styled.aside`
     margin-right: 1rem;
     display: grid;
     place-items: center;
+  }
+  
+  /* Dark mode specific styles */
+  .dark-theme & {
+    .nav-link {
+      color: var(--dark-mode-text-color);
+      
+      &:hover {
+        background: rgba(79, 70, 229, 0.15);
+        color: var(--primary-300);
+      }
+      
+      &.active {
+        background: rgba(79, 70, 229, 0.15);
+        color: var(--primary-300);
+      }
+    }
+    
+    .icon {
+      color: var(--dark-mode-text-color);
+    }
+    
+    .nav-link.active .icon,
+    .nav-link:hover .icon {
+      color: var(--primary-300);
+    }
   }
 `;
 

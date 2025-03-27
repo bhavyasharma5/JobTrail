@@ -2,9 +2,33 @@ import { useDashboardContext } from './DashboardLayout';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { FaPlus } from 'react-icons/fa';
+import customFetch from '../utils/customFetch';
+import { useQuery } from '@tanstack/react-query';
+
+const statsQuery = {
+  queryKey: ['stats'],
+  queryFn: async () => {
+    const response = await customFetch.get('/jobs/stats');
+    return response.data;
+  },
+};
+
+export const loader = (queryClient) => async () => {
+  try {
+    await queryClient.ensureQueryData(statsQuery);
+    return null;
+  } catch (error) {
+    console.error('Error loading stats data:', error);
+    return null;
+  }
+};
 
 const Dashboard = () => {
   const { user } = useDashboardContext() || {};
+  const { data, isLoading } = useQuery(statsQuery);
+  
+  const defaultStats = data?.defaultStats || {};
+  const totalJobs = defaultStats.pending + defaultStats.interview + defaultStats.declined || 0;
 
   return (
     <Wrapper>
@@ -21,19 +45,19 @@ const Dashboard = () => {
       <div className="stats-container">
         <div className="stat-card">
           <h3>Total Jobs</h3>
-          <p className="stat-value">0</p>
+          <p className="stat-value">{isLoading ? '...' : totalJobs}</p>
         </div>
         <div className="stat-card">
           <h3>Pending Applications</h3>
-          <p className="stat-value">0</p>
+          <p className="stat-value">{isLoading ? '...' : defaultStats.pending || 0}</p>
         </div>
         <div className="stat-card">
           <h3>Interviews Scheduled</h3>
-          <p className="stat-value">0</p>
+          <p className="stat-value">{isLoading ? '...' : defaultStats.interview || 0}</p>
         </div>
         <div className="stat-card">
           <h3>Jobs Declined</h3>
-          <p className="stat-value">0</p>
+          <p className="stat-value">{isLoading ? '...' : defaultStats.declined || 0}</p>
         </div>
       </div>
 
@@ -42,23 +66,35 @@ const Dashboard = () => {
           <h2>Recent Jobs</h2>
           <Link to="/dashboard/all-jobs" className="view-all">View All</Link>
         </div>
-        <div className="empty-state">
-          <p>No jobs added yet</p>
-          <Link to="/dashboard/add-job" className="add-job-link">
-            Add your first job
-          </Link>
-        </div>
+        {totalJobs > 0 ? (
+          <div>
+            <p>Recent jobs will appear here</p>
+            <Link to="/dashboard/all-jobs" className="view-all">
+              View all your jobs
+            </Link>
+          </div>
+        ) : (
+          <div className="empty-state">
+            <p>No jobs added yet</p>
+            <Link to="/dashboard/add-job" className="add-job-link">
+              Add your first job
+            </Link>
+          </div>
+        )}
       </div>
     </Wrapper>
   );
 };
 
 const Wrapper = styled.div`
+  background: transparent;
+  
   .dashboard-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-bottom: 2rem;
+    background: transparent;
   }
 
   h1 {
@@ -102,11 +138,12 @@ const Wrapper = styled.div`
   }
 
   .stat-card {
-    background: var(--white);
+    background: var(--background-secondary-color);
     border-radius: var(--border-radius);
     padding: 1.5rem;
     box-shadow: var(--shadow-2);
     transition: var(--transition);
+    border: 1px solid rgba(0, 0, 0, 0.05);
     
     &:hover {
       box-shadow: var(--shadow-3);
@@ -127,10 +164,11 @@ const Wrapper = styled.div`
   }
 
   .recent-jobs {
-    background: var(--white);
+    background: var(--background-secondary-color);
     border-radius: var(--border-radius);
     padding: 1.5rem;
     box-shadow: var(--shadow-2);
+    border: 1px solid rgba(0, 0, 0, 0.05);
   }
 
   .section-header {
@@ -141,6 +179,7 @@ const Wrapper = styled.div`
     
     h2 {
       font-size: 1.25rem;
+      color: var(--text-color);
     }
     
     .view-all {
@@ -158,7 +197,7 @@ const Wrapper = styled.div`
   .empty-state {
     text-align: center;
     padding: 3rem 1rem;
-    color: var(--grey-500);
+    color: var(--text-secondary-color);
     
     p {
       margin-bottom: 1rem;

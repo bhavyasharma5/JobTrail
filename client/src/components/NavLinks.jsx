@@ -4,7 +4,7 @@ import { NavLink } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 const NavLinks = ({ isBigSidebar }) => {
-  const { toggleSidebar, user } = useDashboardContext();
+  const { toggleSidebar, user, isDarkTheme } = useDashboardContext();
   return (
     <div className='nav-links'>
       {links.map((link) => {
@@ -15,11 +15,15 @@ const NavLinks = ({ isBigSidebar }) => {
           <NavLink
             to={path}
             key={path}
-            className={({ isActive }) => isActive ? 'nav-link active' : 'nav-link'}
+            className={({ isActive }) => 
+              isActive 
+                ? `nav-link active ${isDarkTheme ? 'dark-link' : ''}` 
+                : `nav-link ${isDarkTheme ? 'dark-link' : ''}`
+            }
             onClick={isBigSidebar ? null : toggleSidebar}
             end
           >
-            <span className='icon'>{icon}</span>
+            <span className={`icon ${isDarkTheme ? 'dark-icon' : ''}`}>{icon}</span>
             <span className='text'>{text}</span>
           </NavLink>
         );

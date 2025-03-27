@@ -1,5 +1,7 @@
 import styled from 'styled-components';
 import { FaRoute } from 'react-icons/fa';
+import { useDashboardContext } from '../pages/DashboardLayout';
+import { useLocation } from 'react-router-dom';
 
 const LogoWrapper = styled.div`
   display: flex;
@@ -34,7 +36,7 @@ const LogoWrapper = styled.div`
   .job {
     font-size: 1.75rem;
     font-weight: 700;
-    color: var(--grey-900);
+    color: var(--text-color);
     margin-right: 2px;
     letter-spacing: -0.5px;
   }
@@ -77,11 +79,38 @@ const LogoWrapper = styled.div`
       opacity: 1;
     }
   }
+  
+  /* Dark mode specific styles */
+  &.dark-mode {
+    .job {
+      color: var(--dark-mode-text-color);
+    }
+    
+    .trail {
+      color: var(--primary-300);
+      
+      &::after {
+        background: rgba(79, 70, 229, 0.2);
+      }
+    }
+    
+    .icon {
+      color: var(--primary-300);
+    }
+  }
 `;
 
 const Logo = () => {
+  const location = useLocation();
+  const dashboardContext = useDashboardContext();
+  const isDarkTheme = dashboardContext?.isDarkTheme || false;
+  const isDashboard = location.pathname.includes('/dashboard');
+  
+  // Only apply dark mode if we're in the dashboard and dark mode is enabled
+  const shouldApplyDarkMode = isDashboard && isDarkTheme;
+  
   return (
-    <LogoWrapper className="logo">
+    <LogoWrapper className={`logo ${shouldApplyDarkMode ? 'dark-mode' : ''}`}>
       <div className="logo-container">
         <FaRoute className="icon" />
         <span className="job">Job</span>
