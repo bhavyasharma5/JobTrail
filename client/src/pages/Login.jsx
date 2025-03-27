@@ -1,4 +1,4 @@
-import { Link, Form, redirect, useNavigate } from 'react-router-dom';
+import { Link, Form, redirect } from 'react-router-dom';
 import Wrapper from '../assets/wrappers/RegisterAndLoginPage';
 import { FormRow, Logo, SubmitBtn } from '../components';
 import customFetch from '../utils/customFetch';
@@ -23,7 +23,6 @@ export const action =
   };
 
 const Login = () => {
-  const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
 
   const loginDemoUser = async () => {
@@ -34,9 +33,10 @@ const Login = () => {
     try {
       await customFetch.post('/auth/login', data);
       toast.success('Take a test drive');
-      setTimeout(() => {
-        navigate('/dashboard');
-      }, 500);
+      // Clear any stale states
+      localStorage.removeItem('lastLocation');
+      // Force a complete navigation
+      window.location.href = '/dashboard';
     } catch (error) {
       toast.error(error?.response?.data?.msg);
     }
@@ -80,7 +80,18 @@ const Login = () => {
       </div>
       
       <div className="form-side">
-        <Form method='post' className='form'>
+        <Form method='post' className='form' onSubmit={(e) => {
+          // Add client-side form processing
+          const formData = new FormData(e.target);
+          const email = formData.get('email');
+          const password = formData.get('password');
+          
+          if (!email || !password) {
+            e.preventDefault();
+            toast.error('Please fill in all fields');
+            return;
+          }
+        }}>
           <Logo />
           <h4 className="form-title">Welcome Back</h4>
           <p className="form-subtitle">Sign in to continue your job search journey</p>
