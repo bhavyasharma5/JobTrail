@@ -1,12 +1,9 @@
 import styled from 'styled-components';
 
 const Wrapper = styled.section`
-  border-radius: var(--border-radius);
   width: 100%;
-  background: var(--white);
-  padding: 2rem;
-  box-shadow: var(--shadow-2);
-  transition: var(--transition);
+  background: transparent;
+  padding: 0;
   
   .form-title {
     color: var(--text-color);
@@ -14,8 +11,8 @@ const Wrapper = styled.section`
     font-weight: 600;
     margin-bottom: 1.5rem;
     text-transform: capitalize;
+    padding-bottom: 0.75rem;
     border-bottom: 1px solid var(--grey-100);
-    padding-bottom: 1rem;
   }
   
   .form {
@@ -25,19 +22,27 @@ const Wrapper = styled.section`
     padding: 0;
     max-width: 100%;
     width: 100%;
+    background: transparent;
   }
   
   .form-row {
-    margin-bottom: 1.2rem;
+    margin-bottom: 1.5rem;
     
     .form-label {
-      display: block;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
       font-size: 0.875rem;
       margin-bottom: 0.5rem;
       text-transform: capitalize;
-      letter-spacing: 1px;
+      letter-spacing: 0.5px;
       color: var(--text-color);
       font-weight: 500;
+      
+      .icon {
+        color: var(--primary-500);
+        font-size: 1rem;
+      }
     }
     
     .form-input,
@@ -45,7 +50,7 @@ const Wrapper = styled.section`
       width: 100%;
       padding: 0.75rem;
       border-radius: var(--border-radius);
-      background: var(--background-secondary-color);
+      background: var(--white);
       border: 1px solid var(--grey-200);
       color: var(--text-color);
       outline: none;
@@ -110,8 +115,6 @@ const Wrapper = styled.section`
   }
   
   @media (min-width: 768px) {
-    padding: 2.5rem;
-    
     .form-center {
       grid-template-columns: 1fr 1fr;
       column-gap: 1.5rem;
