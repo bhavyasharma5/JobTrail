@@ -110,15 +110,10 @@ The application will be available at:
 - Intuitive navigation and user interface
 - Real-time status updates
 
-## Contributing
-
-Contributions are welcome! Please feel free to submit a Pull Request.
-
 ## License
 
 This project is licensed under the MIT License - see the LICENSE file for details.
 
 ## Acknowledgments
 
-- Design inspiration from modern UIs and Dribbble
 - Icons provided by React Icons
