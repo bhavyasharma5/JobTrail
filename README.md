@@ -1,83 +1,118 @@
-# JobTrail
+# JobTrail - Job Application Tracking System
 
-A comprehensive job tracking application designed to help job seekers organize their job search process.
+A full-stack MERN application for tracking job applications and managing the interview process. Built with MongoDB, Express.js, React.js, and Node.js.
 
 ## Features
 
-- Track job applications in one central location
-- Visual analytics to gain insights on your job search
-- Organize applications by status (pending, interview, declined, etc.)
-- Set reminders for important deadlines
-- Modern and intuitive user interface
-
-## Database Options
-
-JobTrail supports two database options:
-
-### 1. In-Memory Database (Demo/Development)
-
-For quick testing and development, JobTrail can run with an in-memory MongoDB database:
-
-```bash
-npm run demo
-```
-
-**Note:** All data will be lost when the server restarts. This option is only for development/testing.
-
-### 2. MongoDB Atlas (Production/Persistent Storage)
-
-For permanent data storage, JobTrail uses MongoDB Atlas, which requires proper configuration in the `.env` file:
-
-```
-NODE_ENV=development
-PORT=5100
-MONGO_URL=your_mongodb_connection_string
-JWT_SECRET=your_jwt_secret_key_here
-JWT_EXPIRES_IN=1d
-```
-
-## Running the Application
-
-```bash
-# Install dependencies for server and client
-npm run setup-project
-
-# Run with permanent MongoDB Atlas database
-npm run dev
-
-# Run with temporary in-memory database (for testing)
-npm run demo
-```
-
-## Technologies Used
-
-- MongoDB Atlas
-- Express.js
-- React.js
-- Node.js
-- Styled Components
-
-## Project Structure
-
-```
-JobTrail/
-├── client/                  # Frontend React application
-│   ├── public/              # Static files
-│   │   ├── assets/          # Images and styling
-│   │   ├── components/      # Reusable components
-│   │   ├── context/         # React context providers
-│   │   ├── pages/           # Page components
-│   │   └── utils/           # Utility functions
-├── controllers/             # Express route controllers
-├── middleware/              # Express middleware
-├── models/                  # Mongoose models
-├── routes/                  # Express routes
-└── server.js                # Express server
-```
+- **Job Application Tracking**: Track all your job applications in one place
+- **Interview Scheduling**: Schedule and manage interviews with built-in calendar
+- **Application Status Updates**: Real-time status tracking for each application
+- **Analytics Dashboard**: Visual insights into your job search progress
+- **Dark Mode Support**: Comfortable viewing experience in both light and dark modes
+- **Responsive Design**: Works seamlessly on desktop and mobile devices
 
 ## Screenshots
 
-[Screenshots coming soon]
+### Dashboard Overview
+![Dashboard Overview](Screenshots/Screenshot%202025-04-05%20at%2010.39.08.png)
+
+### Job Application Form
+![Job Application Form](Screenshots/Screenshot%202025-04-05%20at%2010.39.46.png)
+
+### Job Details View
+![Job Details](Screenshots/Screenshot%202025-04-05%20at%2010.40.22.png)
+
+### Interview Scheduling
+![Interview Scheduling](Screenshots/Screenshot%202025-04-05%20at%2010.40.38.png)
+
+### Analytics Dashboard
+![Analytics Dashboard](Screenshots/Screenshot%202025-04-05%20at%2010.41.20.png)
+
+## Tech Stack
+
+- **Frontend**: React.js, Styled Components
+- **Backend**: Node.js, Express.js
+- **Database**: MongoDB
+- **Authentication**: JWT
+- **UI Components**: Custom components with dark mode support
+
+## Getting Started
+
+### Prerequisites
+
+- Node.js (v14 or higher)
+- MongoDB
+- npm or yarn
+
+### Installation
+
+1. Clone the repository:
+```bash
+git clone https://github.com/yourusername/jobtrail.git
+cd jobtrail
+```
+
+2. Install dependencies:
+```bash
+# Install server dependencies
+cd server
+npm install
+
+# Install client dependencies
+cd ../client
+npm install
+```
+
+3. Set up environment variables:
+Create a `.env` file in the server directory with:
+```
+PORT=5100
+MONGODB_URI=your_mongodb_uri
+JWT_SECRET=your_jwt_secret
+```
+
+4. Start the development servers:
+```bash
+# Start server (from server directory)
+npm run dev
+
+# Start client (from client directory)
+npm run dev
+```
+
+The application will be available at:
+- Client: http://localhost:5173
+- Server: http://localhost:5100
+
+## Features in Detail
+
+### Job Application Management
+- Add new job applications with company details
+- Track application status (Applied, Interviewing, Offered, Rejected, etc.)
+- Add notes and important dates for each application
+- View application history and timeline
+
+### Interview Scheduling
+- Schedule interviews with built-in calendar
+- Set reminders for upcoming interviews
+- Track interview feedback and outcomes
+- Manage multiple interview rounds
+
+### Analytics Dashboard
+- Visual representation of application status distribution
+- Success rate tracking
+- Interview performance metrics
+- Application timeline view
+
+### User Experience
+- Responsive design for all devices
+- Dark mode support for comfortable viewing
+- Intuitive navigation and user interface
+- Real-time status updates
+
+## Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
 
 ## License
 
