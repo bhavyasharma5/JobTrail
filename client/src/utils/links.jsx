@@ -5,11 +5,17 @@ import { MdQueryStats } from 'react-icons/md';
 import { FaWpforms } from 'react-icons/fa';
 import { ImProfile } from 'react-icons/im';
 import { MdAdminPanelSettings } from 'react-icons/md';
+import { AiFillHome } from 'react-icons/ai';
 
 const links = [
   {
-    text: 'add job',
+    text: 'home',
     path: '.',
+    icon: <AiFillHome />,
+  },
+  {
+    text: 'add job',
+    path: 'add-job',
     icon: <FaWpforms />,
   },
   {

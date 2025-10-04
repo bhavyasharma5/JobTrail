@@ -89,7 +89,13 @@ export const showStats = async (req, res) => {
 
   const defaultStats = {
     pending: stats.pending || 0,
+    applied: stats.applied || 0,
+    'hr screening': stats['hr screening'] || 0,
+    'online assessment': stats['online assessment'] || 0,
+    'technical interview': stats['technical interview'] || 0,
+    'hr interview': stats['hr interview'] || 0,
     interview: stats.interview || 0,
+    'offer accepted': stats['offer accepted'] || 0,
     declined: stats.declined || 0,
   };
 

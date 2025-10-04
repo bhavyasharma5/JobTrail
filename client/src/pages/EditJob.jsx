@@ -64,6 +64,8 @@ const EditJob = () => {
             name='jobLocation'
             labelText='job location'
             defaultValue={job.jobLocation}
+            list='edit-locations'
+            placeholder='e.g. New York, NY'
           />
           <FormRowSelect
             name='jobStatus'
@@ -76,6 +78,12 @@ const EditJob = () => {
             labelText='job type'
             defaultValue={job.jobType}
             list={Object.values(JOB_TYPE)}
+          />
+          <FormRow 
+            type='date' 
+            name='applicationDate' 
+            labelText='application date'
+            defaultValue={job.applicationDate ? new Date(job.applicationDate).toISOString().split('T')[0] : new Date().toISOString().split('T')[0]} 
           />
           <SubmitBtn formBtn />
         </div>

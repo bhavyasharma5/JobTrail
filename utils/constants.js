@@ -1,6 +1,12 @@
 export const JOB_STATUS = {
   PENDING: 'pending',
+  APPLIED: 'applied',
+  HR_SCREENING: 'hr screening',
+  ONLINE_ASSESSMENT: 'online assessment',
+  TECHNICAL_INTERVIEW: 'technical interview',
+  HR_INTERVIEW: 'hr interview',
   INTERVIEW: 'interview',
+  OFFER_ACCEPTED: 'offer accepted',
   DECLINED: 'declined',
 };
 

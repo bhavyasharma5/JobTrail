@@ -26,7 +26,7 @@ const FormRowSelect = ({
         {list.map((itemValue) => {
           return (
             <option key={itemValue} value={itemValue} className={isDarkTheme ? 'dark-option' : ''}>
-              {itemValue}
+              {itemValue.charAt(0).toUpperCase() + itemValue.slice(1)}
             </option>
           );
         })}

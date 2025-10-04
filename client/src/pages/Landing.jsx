@@ -83,6 +83,16 @@ const Landing = () => {
           </Link>
         </div>
       </div>
+      
+      {/* Footer */}
+      <footer className='footer'>
+        <div className='footer-content'>
+          <p className='footer-text'>
+            Developed with <span className='heart'>❤️</span> by <span className='developer-name'>Bhavya Sharma</span>
+          </p>
+          <p className='footer-copyright'>© {new Date().getFullYear()} JobTrail. All rights reserved.</p>
+        </div>
+      </footer>
     </Wrapper>
   );
 };

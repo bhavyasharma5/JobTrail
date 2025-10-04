@@ -5,11 +5,13 @@ const Wrapper = styled.nav`
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: var(--shadow-2);
   background: var(--background-secondary-color);
   transition: var(--transition);
   position: relative;
   z-index: 10;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
   
   .nav-center {
     display: flex;
@@ -21,29 +23,27 @@ const Wrapper = styled.nav`
   
   .toggle-btn {
     background: transparent;
-    border-color: transparent;
+    border: 2px solid transparent;
     font-size: 1.5rem;
-    color: var(--primary-500);
+    color: var(--text-color);
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: var(--transition);
-    padding: 0.375rem;
-    border-radius: var(--border-radius);
+    transition: all 0.3s ease;
+    padding: 0.5rem;
+    border-radius: 8px;
+    
+    &:hover {
+      background: rgba(99, 102, 241, 0.1);
+      color: var(--primary-600);
+      border-color: rgba(99, 102, 241, 0.2);
+    }
   }
   
-  .toggle-btn:hover {
-    color: var(--primary-700);
-    transform: rotate(90deg);
-  }
-  
-  .logo-text {
-    display: none;
-    font-weight: 700;
-    font-size: 1.8rem;
-    color: var(--primary-600);
-    letter-spacing: 1px;
+  .logo-container {
+    display: flex;
+    align-items: center;
   }
   
   .logo {
@@ -55,7 +55,7 @@ const Wrapper = styled.nav`
   .btn-container {
     display: flex;
     align-items: center;
-    gap: 1rem;
+    gap: 0.75rem;
   }
   
   .user-btn {

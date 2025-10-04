@@ -1,30 +1,36 @@
 import styled from 'styled-components';
 
 const Wrapper = styled.button`
-  background: var(--background-secondary-color);
-  border: 2px solid var(--primary-500);
-  width: 40px;
-  height: 40px;
+  background: transparent;
+  border: 2px solid transparent;
+  width: 42px;
+  height: 42px;
   display: grid;
   place-items: center;
   cursor: pointer;
-  border-radius: 50%;
-  transition: var(--transition);
-  box-shadow: var(--shadow-1);
+  border-radius: 8px;
+  transition: all 0.3s ease;
   
   &:hover {
-    background: var(--primary-50);
-    transform: rotate(90deg);
+    background: rgba(99, 102, 241, 0.1);
+    border-color: rgba(99, 102, 241, 0.2);
   }
   
   .toggle-icon {
     font-size: 1.25rem;
-    color: var(--primary-500);
+    color: var(--text-color);
+    transition: all 0.3s ease;
   }
   
   svg {
     font-size: 1.25rem;
-    color: var(--primary-500);
+    color: var(--text-color);
+    transition: all 0.3s ease;
+  }
+  
+  &:hover svg,
+  &:hover .toggle-icon {
+    color: var(--primary-600);
   }
 `;
 

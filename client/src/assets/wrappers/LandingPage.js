@@ -296,6 +296,65 @@ const Wrapper = styled.section`
     }
   }
   
+  /* Footer Styles */
+  .footer {
+    position: relative;
+    z-index: 1;
+    background: linear-gradient(135deg, var(--grey-900) 0%, var(--grey-800) 100%);
+    color: var(--grey-300);
+    padding: 2rem 1rem;
+    text-align: center;
+    margin-top: 0;
+  }
+  
+  .footer-content {
+    width: var(--fluid-width);
+    max-width: var(--max-width);
+    margin: 0 auto;
+  }
+  
+  .footer-text {
+    font-size: 1.1rem;
+    margin-bottom: 0.5rem;
+    color: var(--grey-200);
+    font-weight: 500;
+    
+    .heart {
+      color: var(--red-dark);
+      animation: heartbeat 1.5s ease-in-out infinite;
+      display: inline-block;
+      margin: 0 0.25rem;
+    }
+    
+    .developer-name {
+      color: var(--primary-400);
+      font-weight: 600;
+      transition: var(--transition);
+      
+      &:hover {
+        color: var(--primary-300);
+      }
+    }
+  }
+  
+  .footer-copyright {
+    font-size: 0.9rem;
+    color: var(--grey-400);
+    margin: 0;
+  }
+  
+  @keyframes heartbeat {
+    0%, 100% {
+      transform: scale(1);
+    }
+    10%, 30% {
+      transform: scale(1.2);
+    }
+    20%, 40% {
+      transform: scale(1);
+    }
+  }
+  
   /* Media Queries */
   @media (min-width: 576px) {
     .benefits-grid {

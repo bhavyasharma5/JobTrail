@@ -14,8 +14,9 @@ const Job = ({
   jobType,
   createdAt,
   jobStatus,
+  applicationDate,
 }) => {
-  const date = day(createdAt).format('MMM Do, YYYY');
+  const date = day(applicationDate || createdAt).format('MMM Do, YYYY');
   return (
     <Wrapper>
       <header>
