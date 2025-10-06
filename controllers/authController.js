@@ -38,6 +38,7 @@ export const login = async (req, res) => {
     expires: new Date(Date.now() + oneDay),
     secure: true,
     sameSite: 'none',
+    path: '/',
   });
   res.status(StatusCodes.OK).json({ msg: 'user logged in' });
 };
