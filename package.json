@@ -11,7 +11,7 @@
     "client": "cd client && npm run dev",
     "dev": "concurrently --kill-others-on-fail \"npm run server\" \"npm run client\"",
     "demo": "concurrently --kill-others-on-fail \"npm run server-demo\" \"npm run client\"",
-    "build": "cd client && npm ci && npx --no-install vite build",
+    "build": "cd client && npm install && npx --no-install vite build",
     "start": "node server.js"
   },
   "keywords": [],
