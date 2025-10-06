@@ -70,14 +70,19 @@ if (process.env.NODE_ENV === 'production') {
 
 app.use(errorHandlerMiddleware);
 
-const port = process.env.PORT || 5100;
+const port = process.env.PORT || 10000;
 
 try {
+  console.log('Connecting to MongoDB...');
   await mongoose.connect(process.env.MONGO_URL);
+  console.log('MongoDB connected successfully');
+  
   app.listen(port, () => {
-    console.log(`server running on PORT ${port}...`);
+    console.log(`Server running on PORT ${port}...`);
+    console.log('Environment:', process.env.NODE_ENV);
+    console.log('CORS enabled for:', ['https://job-trail-mu.vercel.app', 'http://localhost:5173']);
   });
 } catch (error) {
-  console.log(error);
+  console.error('Server startup error:', error);
   process.exit(1);
 }
