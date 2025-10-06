@@ -32,10 +32,15 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // CORS configuration
 app.use(cors({
-  origin: ['https://job-trail-mu.vercel.app', 'http://localhost:5173'],
+  origin: [
+    'https://job-trail-mu.vercel.app',
+    'https://job-trail-20gx0aq8k-bhavya-sharmas-projects-f6e9dd46.vercel.app',
+    'http://localhost:5173'
+  ],
   credentials: true,
   methods: ['GET', 'POST', 'PATCH', 'DELETE'],
   allowedHeaders: ['Content-Type', 'Authorization'],
+  exposedHeaders: ['set-cookie'],
 }));
 
 app.use(cookieParser());

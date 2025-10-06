@@ -36,9 +36,8 @@ export const login = async (req, res) => {
   res.cookie('token', token, {
     httpOnly: true,
     expires: new Date(Date.now() + oneDay),
-    secure: process.env.NODE_ENV === 'production',
-    sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax',
-    domain: process.env.NODE_ENV === 'production' ? '.onrender.com' : 'localhost',
+    secure: true,
+    sameSite: 'none',
   });
   res.status(StatusCodes.OK).json({ msg: 'user logged in' });
 };
