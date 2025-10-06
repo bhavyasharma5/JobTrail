@@ -61,14 +61,39 @@ if (process.env.NODE_ENV === 'production') {
 
 app.use(errorHandlerMiddleware);
 
-const port = process.env.PORT || 5100;
-
-try {
-  await mongoose.connect(process.env.MONGO_URL);
-  app.listen(port, () => {
-    console.log(`server running on PORT ${port}...`);
-  });
-} catch (error) {
-  console.log(error);
-  process.exit(1);
+// MongoDB connection for serverless
+let isConnected = false;
+async function connectDB() {
+  if (isConnected) {
+    return;
+  }
+  try {
+    await mongoose.connect(process.env.MONGO_URL);
+    isConnected = true;
+    console.log('MongoDB connected');
+  } catch (error) {
+    console.error('MongoDB connection error:', error);
+  }
 }
+
+// Connect to DB before handling requests
+app.use(async (req, res, next) => {
+  await connectDB();
+  next();
+});
+
+// Only start server if not in serverless environment
+if (process.env.NODE_ENV !== 'production' || process.env.VERCEL !== '1') {
+  const port = process.env.PORT || 5100;
+  try {
+    await mongoose.connect(process.env.MONGO_URL);
+    app.listen(port, () => {
+      console.log(`server running on PORT ${port}...`);
+    });
+  } catch (error) {
+    console.log(error);
+    process.exit(1);
+  }
+}
+
+export default app;
