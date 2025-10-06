@@ -1,0 +1,13 @@
+node_modules
+client/node_modules
+.env
+.env.local
+.git
+.gitignore
+*.md
+Screenshots
+.DS_Store
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+

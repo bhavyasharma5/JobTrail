@@ -46,9 +46,18 @@ app.use('/api/v1/jobs', authenticateUser, jobRouter);
 app.use('/api/v1/users', authenticateUser, userRouter);
 app.use('/api/v1/auth', authRouter);
 
-app.use('*', (req, res) => {
-  res.status(404).json({ msg: 'not found' });
-});
+// Serve static files from React app in production
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static(path.join(__dirname, 'client/dist')));
+  
+  app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, 'client/dist', 'index.html'));
+  });
+} else {
+  app.use('*', (req, res) => {
+    res.status(404).json({ msg: 'not found' });
+  });
+}
 
 app.use(errorHandlerMiddleware);
 
