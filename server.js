@@ -8,6 +8,7 @@ import mongoose from 'mongoose';
 import cookieParser from 'cookie-parser';
 import helmet from 'helmet';
 import mongoSanitize from 'express-mongo-sanitize';
+import cors from 'cors';
 import path from 'path';
 import { fileURLToPath } from 'url';
 
@@ -28,6 +29,14 @@ if (process.env.NODE_ENV === 'development') {
 
 // Serve static files from public directory
 app.use(express.static(path.join(__dirname, 'public')));
+
+// CORS configuration
+app.use(cors({
+  origin: ['https://job-trail-mu.vercel.app', 'http://localhost:5173'],
+  credentials: true,
+  methods: ['GET', 'POST', 'PATCH', 'DELETE'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+}));
 
 app.use(cookieParser());
 app.use(express.json());
