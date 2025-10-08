@@ -1,9 +1,11 @@
 import { toast } from 'react-toastify';
 import { JobsContainer, SearchContainer } from '../components';
 import customFetch from '../utils/customFetch';
-import { useLoaderData } from 'react-router-dom';
+import { useLoaderData, Link } from 'react-router-dom';
 import { useContext, createContext } from 'react';
 import { useQuery } from '@tanstack/react-query';
+import { FaPlus } from 'react-icons/fa';
+import styled from 'styled-components';
 
 const allJobsQuery = (params) => {
   const { search, jobStatus, jobType, sort, page } = params;
@@ -42,11 +44,14 @@ const AllJobs = () => {
   const { data } = useQuery(allJobsQuery(searchValues));
   return (
     <AllJobsContext.Provider value={{ data, searchValues }}>
-      <div className="page-header">
+      <div className="dashboard-header">
         <div className="header-content">
-          <h1 className="page-title">All Applications</h1>
-          <p className="subtitle">Track and manage all your job applications in one place</p>
+          <h1 className="page-title">Job Application Dashboard</h1>
+          <p className="subtitle">Track and manage your job applications</p>
         </div>
+        <Link to="/dashboard/add-job" className="add-job-btn">
+          <FaPlus className="icon" /> Add New Application
+        </Link>
       </div>
       <SearchContainer />
       <JobsContainer />
