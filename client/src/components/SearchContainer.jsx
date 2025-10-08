@@ -1,10 +1,10 @@
 import { FormRow, FormRowSelect } from '.';
-import Wrapper from '../assets/wrappers/DashboardFormPage';
+import Wrapper from '../assets/wrappers/SearchContainer';
 import { Form, useSubmit, Link } from 'react-router-dom';
 import { JOB_TYPE, JOB_STATUS, JOB_SORT_BY } from '../utils/constants';
 import { useAllJobsContext } from '../pages/AllJobs';
-import styled from 'styled-components';
 import { useDashboardContext } from '../pages/DashboardLayout';
+import { FaSearch, FaFilter, FaSortAmountDown } from 'react-icons/fa';
 
 const SearchContainer = () => {
   const { searchValues } = useAllJobsContext();
@@ -22,85 +22,75 @@ const SearchContainer = () => {
       }, 2000);
     };
   };
+
   return (
     <Wrapper>
       <Form className='form'>
-        <h5 className={`form-title ${isDarkTheme ? 'dark-title' : ''}`}>Search Form</h5>
-        <div className='form-center'>
-          <FormRow
-            type='search'
-            name='search'
-            defaultValue={search}
-            onChange={debounce((form) => {
-              submit(form);
-            })}
-          />
+        <div className='form-title'>
+          <FaFilter className="title-icon" />
+          <h2>Filter Applications</h2>
+        </div>
 
-          <FormRowSelect
-            labelText='job status'
-            name='jobStatus'
-            list={['all', ...Object.values(JOB_STATUS)]}
-            defaultValue={jobStatus}
-            onChange={(e) => {
-              submit(e.currentTarget.form);
-            }}
-          />
-          <FormRowSelect
-            labelText='job type'
-            name='jobType'
-            list={['all', ...Object.values(JOB_TYPE)]}
-            defaultValue={jobType}
-            onChange={(e) => {
-              submit(e.currentTarget.form);
-            }}
-          />
-          <FormRowSelect
-            name='sort'
-            defaultValue={sort}
-            list={[...Object.values(JOB_SORT_BY)]}
-            onChange={(e) => {
-              submit(e.currentTarget.form);
-            }}
-          />
-          <ResetButton to='/dashboard/all-jobs' className={isDarkTheme ? 'dark-button' : ''}>
-            Reset Search Values
-          </ResetButton>
+        <div className='form-grid'>
+          <div className="search-group">
+            <div className="input-group">
+              <FaSearch className="input-icon" />
+              <input
+                type="search"
+                name="search"
+                className="search-input"
+                defaultValue={search}
+                placeholder="Search by position or company..."
+                onChange={debounce((form) => {
+                  submit(form);
+                })}
+              />
+            </div>
+          </div>
+
+          <div className="filter-group">
+            <FormRowSelect
+              labelText='Status'
+              name='jobStatus'
+              list={['all', ...Object.values(JOB_STATUS)]}
+              defaultValue={jobStatus}
+              onChange={(e) => {
+                submit(e.currentTarget.form);
+              }}
+            />
+          </div>
+
+          <div className="filter-group">
+            <FormRowSelect
+              labelText='Type'
+              name='jobType'
+              list={['all', ...Object.values(JOB_TYPE)]}
+              defaultValue={jobType}
+              onChange={(e) => {
+                submit(e.currentTarget.form);
+              }}
+            />
+          </div>
+
+          <div className="filter-group">
+            <FormRowSelect
+              labelText='Sort By'
+              name='sort'
+              defaultValue={sort}
+              list={[...Object.values(JOB_SORT_BY)]}
+              onChange={(e) => {
+                submit(e.currentTarget.form);
+              }}
+            />
+          </div>
+
+          <Link to='/dashboard/all-jobs' className='reset-btn'>
+            Reset Filters
+          </Link>
         </div>
       </Form>
     </Wrapper>
   );
 };
-
-const ResetButton = styled(Link)`
-  background: var(--background-secondary-color);
-  color: var(--primary-600);
-  border: 1px solid var(--primary-300);
-  border-radius: var(--border-radius);
-  padding: 0.75rem 1rem;
-  display: inline-block;
-  text-align: center;
-  font-weight: 500;
-  text-transform: capitalize;
-  letter-spacing: var(--letter-spacing);
-  transition: var(--transition);
-  
-  &:hover {
-    background: var(--primary-600);
-    color: var(--white);
-    transform: translateY(-2px);
-    box-shadow: var(--shadow-2);
-  }
-  
-  &.dark-button {
-    border-color: var(--primary-400);
-    background: rgba(79, 70, 229, 0.1);
-    color: var(--primary-300);
-    
-    &:hover {
-      background: var(--primary-600);
-      color: var(--white);
-    }
-  }
-`;
 
 export default SearchContainer;
