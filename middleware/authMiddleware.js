@@ -6,8 +6,16 @@ import {
 import { verifyJWT } from '../utils/tokenUtils.js';
 
 export const authenticateUser = (req, res, next) => {
+  // Skip authentication for OPTIONS requests
+  if (req.method === 'OPTIONS') {
+    return next();
+  }
+
   const { token } = req.cookies;
-  if (!token) throw new UnauthenticatedError('authentication invalid');
+  if (!token) {
+    console.log('No token found in cookies');
+    throw new UnauthenticatedError('authentication invalid');
+  }
 
   try {
     const { userId, role } = verifyJWT(token);
@@ -15,6 +23,7 @@ export const authenticateUser = (req, res, next) => {
     req.user = { userId, role, testUser };
     next();
   } catch (error) {
+    console.error('JWT verification failed:', error);
     throw new UnauthenticatedError('authentication invalid');
   }
 };

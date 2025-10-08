@@ -27,11 +27,7 @@ if (process.env.NODE_ENV === 'development') {
   app.use(morgan('dev'));
 }
 
-// Serve static files from public directory
-app.use(express.static(path.join(__dirname, 'public')));
-
-// CORS configuration
-// Enable CORS with more permissive options for development
+// CORS configuration - Must be first!
 app.use(cors({
   origin: function(origin, callback) {
     // Allow requests with no origin (like mobile apps or curl requests)
@@ -53,9 +49,14 @@ app.use(cors({
   methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization', 'Cookie', 'X-Requested-With', 'Accept'],
   exposedHeaders: ['Set-Cookie'],
-  maxAge: 86400, // 24 hours
-  preflightContinue: true
+  maxAge: 86400 // 24 hours
 }));
+
+// Handle OPTIONS preflight requests
+app.options('*', cors());
+
+// Serve static files from public directory
+app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(cookieParser());
 app.use(express.json());
