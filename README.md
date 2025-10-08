@@ -2,6 +2,8 @@
 
 A full-stack MERN application for tracking job applications and managing the interview process. Built with MongoDB, Express.js, React.js, and Node.js.
 
+🚀 **Live Demo**: [JobTrail App](https://job-trail-otrfexohn-bhavya-sharmas-projects-f6e9dd46.vercel.app/)
+
 ## Features
 
 - **Job Application Tracking**: Track all your job applications in one place
@@ -14,19 +16,16 @@ A full-stack MERN application for tracking job applications and managing the int
 ## Screenshots
 
 ### Dashboard Overview
-![Dashboard Overview](Screenshots/Screenshot%202025-04-05%20at%2010.39.08.png)
+![Dashboard](Screenshots/dashboard.png)
+Modern dashboard with quick stats and actions for managing your job search journey.
 
-### Job Application Form
-![Job Application Form](Screenshots/Screenshot%202025-04-05%20at%2010.39.46.png)
+### All Applications View
+![All Applications](Screenshots/all-jobs.png)
+Comprehensive view of all your applications with powerful filtering and search capabilities.
 
-### Job Details View
-![Job Details](Screenshots/Screenshot%202025-04-05%20at%2010.40.22.png)
-
-### Interview Scheduling
-![Interview Scheduling](Screenshots/Screenshot%202025-04-05%20at%2010.40.38.png)
-
-### Analytics Dashboard
-![Analytics Dashboard](Screenshots/Screenshot%202025-04-05%20at%2010.41.20.png)
+### Add New Application
+![Add Application](Screenshots/add-job.png)
+Intuitive form for adding new job applications with detailed information tracking.
 
 ## Tech Stack
 
@@ -35,6 +34,7 @@ A full-stack MERN application for tracking job applications and managing the int
 - **Database**: MongoDB
 - **Authentication**: JWT
 - **UI Components**: Custom components with dark mode support
+- **Deployment**: Vercel (Frontend), Render (Backend)
 
 ## Getting Started
 
@@ -55,16 +55,15 @@ cd jobtrail
 2. Install dependencies:
 ```bash
 # Install server dependencies
-cd server
 npm install
 
 # Install client dependencies
-cd ../client
+cd client
 npm install
 ```
 
 3. Set up environment variables:
-Create a `.env` file in the server directory with:
+Create a `.env` file in the root directory with:
 ```
 PORT=5100
 MONGODB_URI=your_mongodb_uri
@@ -73,42 +72,34 @@ JWT_SECRET=your_jwt_secret
 
 4. Start the development servers:
 ```bash
-# Start server (from server directory)
-npm run dev
-
-# Start client (from client directory)
+# Start both frontend and backend
 npm run dev
 ```
 
 The application will be available at:
-- Client: http://localhost:5173
-- Server: http://localhost:5100
+- Frontend: http://localhost:5173
+- Backend: http://localhost:5100
 
 ## Features in Detail
 
 ### Job Application Management
 - Add new job applications with company details
-- Track application status (Applied, Interviewing, Offered, Rejected, etc.)
+- Track application status (Applied, HR Screening, Online Assessment, Technical Interview, HR Interview, Offer Accepted, etc.)
 - Add notes and important dates for each application
 - View application history and timeline
 
-### Interview Scheduling
-- Schedule interviews with built-in calendar
-- Set reminders for upcoming interviews
-- Track interview feedback and outcomes
-- Manage multiple interview rounds
-
-### Analytics Dashboard
+### Application Analytics
 - Visual representation of application status distribution
 - Success rate tracking
 - Interview performance metrics
 - Application timeline view
 
 ### User Experience
+- Modern, intuitive interface
 - Responsive design for all devices
 - Dark mode support for comfortable viewing
-- Intuitive navigation and user interface
 - Real-time status updates
+- Advanced filtering and search capabilities
 
 ## License
 
@@ -117,3 +108,4 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 ## Acknowledgments
 
 - Icons provided by React Icons
+- UI/UX inspiration from modern design trends
