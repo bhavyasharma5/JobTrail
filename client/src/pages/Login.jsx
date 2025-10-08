@@ -79,7 +79,7 @@ const Login = () => {
       </div>
       
       <div className="form-side">
-        <Form method='post' className='form' onSubmit={(e) => {
+        <Form method='post' className='form' action='/login' onSubmit={(e) => {
           // Add client-side form processing
           const formData = new FormData(e.target);
           const email = formData.get('email');
