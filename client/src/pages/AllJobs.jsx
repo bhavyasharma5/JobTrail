@@ -56,10 +56,10 @@ const AllJobs = () => {
             <FaPlus className="icon" /> Add New Application
           </Link>
         </div>
-        <JobsContainer />
         <div className="search-section">
           <SearchContainer />
         </div>
+        <JobsContainer />
       </AllJobsContext.Provider>
     </Wrapper>
   );
