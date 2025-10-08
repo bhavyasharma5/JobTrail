@@ -28,7 +28,7 @@ const SearchContainer = () => {
       <Form className='form'>
         <div className='form-title'>
           <FaFilter className="title-icon" />
-          <h2>Filter Applications</h2>
+          <h2>Filters</h2>
         </div>
 
         <div className='form-grid'>

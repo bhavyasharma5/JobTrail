@@ -18,14 +18,14 @@ const Wrapper = styled.section`
     margin-bottom: 2rem;
 
     h2 {
-      font-size: 1.5rem;
+      font-size: 1.25rem;
       font-weight: 600;
       color: var(--text-color);
       margin: 0;
     }
 
     .title-icon {
-      font-size: 1.25rem;
+      font-size: 1.125rem;
       color: var(--primary-500);
     }
   }
@@ -33,6 +33,7 @@ const Wrapper = styled.section`
   .form-grid {
     display: grid;
     gap: 1.5rem;
+    align-items: flex-end;
     
     @media (min-width: 768px) {
       grid-template-columns: 1fr 1fr;
@@ -40,7 +41,7 @@ const Wrapper = styled.section`
     
     @media (min-width: 1200px) {
       grid-template-columns: 2fr 1fr 1fr 1fr auto;
-      align-items: end;
+      gap: 1rem;
     }
   }
 
@@ -65,13 +66,14 @@ const Wrapper = styled.section`
 
   .search-input {
     width: 100%;
-    padding: 0.875rem 1rem 0.875rem 2.75rem;
+    padding: 0.75rem 1rem 0.75rem 2.75rem;
     background: var(--background-color);
     border: 2px solid rgba(0, 0, 0, 0.08);
     border-radius: 10px;
     color: var(--text-color);
-    font-size: 1rem;
+    font-size: 0.95rem;
     transition: all 0.3s ease;
+    height: 42px;
 
     &:focus {
       outline: none;
@@ -88,22 +90,22 @@ const Wrapper = styled.section`
   .filter-group {
     label {
       display: block;
-      font-size: 0.875rem;
+      font-size: 0.75rem;
       font-weight: 500;
       color: var(--text-secondary-color);
-      margin-bottom: 0.5rem;
+      margin-bottom: 0.375rem;
       text-transform: uppercase;
       letter-spacing: 0.5px;
     }
 
     select {
       width: 100%;
-      padding: 0.875rem 1rem;
+      padding: 0.75rem 1rem;
       background: var(--background-color);
       border: 2px solid rgba(0, 0, 0, 0.08);
       border-radius: 10px;
       color: var(--text-color);
-      font-size: 1rem;
+      font-size: 0.95rem;
       transition: all 0.3s ease;
       cursor: pointer;
       appearance: none;
@@ -112,6 +114,7 @@ const Wrapper = styled.section`
       background-position: right 0.75rem center;
       background-size: 1.25em;
       padding-right: 2.5rem;
+      height: 42px;
 
       &:focus {
         outline: none;
@@ -125,7 +128,7 @@ const Wrapper = styled.section`
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    padding: 0.875rem 1.5rem;
+    padding: 0 1.5rem;
     background: var(--red-light);
     color: var(--red-dark);
     border: none;
@@ -136,7 +139,7 @@ const Wrapper = styled.section`
     transition: all 0.3s ease;
     text-decoration: none;
     white-space: nowrap;
-    height: fit-content;
+    height: 42px;
 
     &:hover {
       background: var(--red-dark);
@@ -181,5 +184,3 @@ const Wrapper = styled.section`
     }
   }
 `;
-
-export default Wrapper;

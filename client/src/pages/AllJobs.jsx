@@ -46,15 +46,17 @@ const AllJobs = () => {
     <AllJobsContext.Provider value={{ data, searchValues }}>
       <div className="dashboard-header">
         <div className="header-content">
-          <h1 className="page-title">Job Application Dashboard</h1>
-          <p className="subtitle">Track and manage your job applications</p>
+          <h1 className="page-title">All Applications</h1>
+          <p className="subtitle">View and manage all your job applications</p>
         </div>
         <Link to="/dashboard/add-job" className="add-job-btn">
           <FaPlus className="icon" /> Add New Application
         </Link>
       </div>
-      <SearchContainer />
       <JobsContainer />
+      <div className="search-section">
+        <SearchContainer />
+      </div>
     </AllJobsContext.Provider>
   );
 };
