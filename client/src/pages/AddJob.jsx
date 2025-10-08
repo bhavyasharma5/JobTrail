@@ -192,12 +192,19 @@ const Wrapper = styled.section`
   .page-title {
     font-size: 2.25rem;
     font-weight: 700;
-    background: linear-gradient(135deg, var(--primary-300) 0%, var(--primary-500) 100%);
+    background: linear-gradient(135deg, var(--grey-900) 0%, var(--primary-600) 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
     margin-bottom: 0.5rem;
     letter-spacing: -0.5px;
+  }
+
+  .dark-theme & .page-title {
+    background: linear-gradient(135deg, var(--primary-300) 0%, var(--primary-500) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
   }
 
   .page-subtitle {
