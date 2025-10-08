@@ -29,32 +29,56 @@ Intuitive form for adding new job applications with detailed information trackin
 
 ## Tech Stack
 
-- **Frontend**: React.js, Styled Components
-- **Backend**: Node.js, Express.js
-- **Database**: MongoDB
-- **Authentication**: JWT
-- **UI Components**: Custom components with dark mode support
-- **Deployment**: Vercel (Frontend), Render (Backend)
+### Frontend
+- React.js with Vite
+- Styled Components for styling
+- React Query for state management
+- React Router v6 for routing
+- Dark mode support
+
+### Backend
+- Node.js & Express.js
+- MongoDB with Mongoose
+- JWT Authentication
+- Express Async Errors
+
+### Deployment
+- Frontend: Vercel
+- Backend: Render
+- Database: MongoDB Atlas
 
 ## Getting Started
 
-### Prerequisites
+You can use the [live demo](https://job-trail-otrfexohn-bhavya-sharmas-projects-f6e9dd46.vercel.app/) to try out the application.
 
-- Node.js (v14 or higher)
-- MongoDB
-- npm or yarn
+### Running Locally
 
-### Installation
+If you want to run the project locally or contribute:
 
-1. Clone the repository:
+1. Fork and clone the repository:
 ```bash
-git clone https://github.com/yourusername/jobtrail.git
-cd jobtrail
+git clone https://github.com/bhavyasharma5/JobTrail.git
+cd JobTrail
 ```
 
-2. Install dependencies:
+2. Set up environment variables:
+Create a `.env` file in the root directory:
+```env
+# Server Configuration
+PORT=5100
+NODE_ENV=development
+
+# MongoDB
+MONGODB_URI=your_mongodb_uri
+
+# JWT
+JWT_SECRET=your_jwt_secret
+JWT_EXPIRES_IN=1d
+```
+
+3. Install dependencies:
 ```bash
-# Install server dependencies
+# Install root dependencies
 npm install
 
 # Install client dependencies
@@ -62,23 +86,43 @@ cd client
 npm install
 ```
 
-3. Set up environment variables:
-Create a `.env` file in the root directory with:
-```
-PORT=5100
-MONGODB_URI=your_mongodb_uri
-JWT_SECRET=your_jwt_secret
-```
-
-4. Start the development servers:
+4. Start development servers:
 ```bash
-# Start both frontend and backend
+# Start backend (from root directory)
+npm run server
+
+# Start frontend (from client directory)
 npm run dev
 ```
 
 The application will be available at:
 - Frontend: http://localhost:5173
 - Backend: http://localhost:5100
+
+### Deployment
+
+To deploy your own instance:
+
+1. **Frontend (Vercel)**:
+   - Fork this repository
+   - Create a new project on Vercel
+   - Connect your forked repository
+   - Set the root directory to `client`
+   - Set the build command to `npm run build`
+   - Deploy!
+
+2. **Backend (Render)**:
+   - Create a new Web Service on Render
+   - Connect your forked repository
+   - Set the build command: `npm install`
+   - Set the start command: `npm start`
+   - Add your environment variables
+   - Deploy!
+
+3. **Database**:
+   - Create a MongoDB Atlas cluster
+   - Get your connection string
+   - Add it to your environment variables
 
 ## Features in Detail
 
