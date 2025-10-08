@@ -15,10 +15,15 @@ const JobsContainer = () => {
   }
   return (
     <Wrapper>
-      <h5>
-        {totalJobs} job{jobs.length > 1 && 's'} found
-      </h5>
-      <div className='jobs'>
+      <div className="results-header">
+        <div className="results-info">
+          <h2 className="results-title">Search Results</h2>
+          <p className="results-count">
+            Found <span>{totalJobs}</span> job application{jobs.length > 1 && 's'}
+          </p>
+        </div>
+      </div>
+      <div className='jobs-grid'>
         {jobs.map((job) => {
           return <Job key={job._id} {...job} />;
         })}

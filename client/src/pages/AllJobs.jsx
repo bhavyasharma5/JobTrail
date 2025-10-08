@@ -42,6 +42,12 @@ const AllJobs = () => {
   const { data } = useQuery(allJobsQuery(searchValues));
   return (
     <AllJobsContext.Provider value={{ data, searchValues }}>
+      <div className="page-header">
+        <div className="header-content">
+          <h1 className="page-title">All Applications</h1>
+          <p className="subtitle">Track and manage all your job applications in one place</p>
+        </div>
+      </div>
       <SearchContainer />
       <JobsContainer />
     </AllJobsContext.Provider>
