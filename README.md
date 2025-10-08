@@ -16,15 +16,15 @@ A full-stack MERN application for tracking job applications and managing the int
 ## Screenshots
 
 ### Dashboard Overview
-![Dashboard](Screenshots/dashboard.png)
+![Dashboard](Screenshots/Screenshot%202025-10-08%20at%2011.10.13.png)
 Modern dashboard with quick stats and actions for managing your job search journey.
 
 ### All Applications View
-![All Applications](Screenshots/all-jobs.png)
+![All Applications](Screenshots/Screenshot%202025-10-08%20at%2011.10.35.png)
 Comprehensive view of all your applications with powerful filtering and search capabilities.
 
 ### Add New Application
-![Add Application](Screenshots/add-job.png)
+![Add Application](Screenshots/Screenshot%202025-10-08%20at%2011.10.55.png)
 Intuitive form for adding new job applications with detailed information tracking.
 
 ## Tech Stack
