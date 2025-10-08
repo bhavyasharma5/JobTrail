@@ -86,7 +86,7 @@ const Wrapper = styled.aside`
     transition: all 0.2s ease-in-out;
     border-radius: 12px;
     font-weight: 500;
-    font-size: 0.95rem;
+    font-size: 1.05rem;
     background: transparent;
     
     &:hover {
@@ -117,14 +117,15 @@ const Wrapper = styled.aside`
   }
   
   .icon {
-    font-size: 1.25rem;
-    margin-right: 1rem;
+    font-size: 1.4rem;
+    margin-right: 1.25rem;
     display: flex;
     align-items: center;
     justify-content: center;
     transition: var(--transition);
     color: inherit;
     opacity: 0.8;
+    min-width: 24px;
   }
   
   /* Dark mode specific styles */

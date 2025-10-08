@@ -56,7 +56,7 @@ const Wrapper = styled.aside`
       font-weight: 500;
       position: relative;
       background: transparent;
-      font-size: 0.95rem;
+      font-size: 1.05rem;
       
       &:hover {
         background: rgba(99, 102, 241, 0.1);
@@ -85,14 +85,15 @@ const Wrapper = styled.aside`
     }
     
     .icon {
-      font-size: 1.25rem;
-      margin-right: 1rem;
+      font-size: 1.4rem;
+      margin-right: 1.25rem;
       display: flex;
       align-items: center;
       justify-content: center;
       transition: var(--transition);
       color: inherit;
       opacity: 0.8;
+      min-width: 24px;
     }
     
     /* Dark mode specific styles */
