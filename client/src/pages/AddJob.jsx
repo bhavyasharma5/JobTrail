@@ -4,7 +4,7 @@ import { JOB_STATUS, JOB_TYPE } from '../utils/constants';
 import { Form, redirect } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import customFetch from '../utils/customFetch';
-import { FaBriefcase, FaBuilding, FaLocationArrow, FaCalendarCheck, FaRegPaperPlane, FaClock } from 'react-icons/fa';
+import { FaBriefcase, FaBuilding, FaLocationArrow, FaCalendarCheck, FaRegPaperPlane, FaClock, FaStickyNote } from 'react-icons/fa';
 import mainImage from '../assets/images/main-alternative.svg';
 import INDIAN_CITIES from '../utils/indianCities';
 
@@ -146,6 +146,20 @@ const AddJob = () => {
                 />
               </div>
 
+              <div className="form-group notes-group">
+                <label htmlFor="notes" className="modern-label">
+                  <FaStickyNote className="label-icon" />
+                  <span>Notes</span>
+                </label>
+                <textarea
+                  id="notes"
+                  name="notes"
+                  className="modern-textarea"
+                  placeholder="Add any notes about the role, interview process, or follow-ups..."
+                  rows="4"
+                />
+              </div>
+
               <div className="form-actions">
                 <button type="submit" className="submit-btn">
                   <FaRegPaperPlane className="btn-icon" />
@@ -258,7 +272,8 @@ const Wrapper = styled.section`
   }
 
   .modern-input,
-  .modern-select {
+  .modern-select,
+  .modern-textarea {
     width: 100%;
     padding: 0.875rem 1rem;
     border-radius: 10px;
@@ -279,6 +294,17 @@ const Wrapper = styled.section`
       color: var(--text-secondary-color);
       opacity: 0.6;
     }
+  }
+
+  .modern-textarea {
+    resize: vertical;
+    min-height: 120px;
+    line-height: 1.5;
+    font-family: inherit;
+  }
+
+  .notes-group {
+    grid-column: 1 / -1;
   }
 
   .modern-select {
