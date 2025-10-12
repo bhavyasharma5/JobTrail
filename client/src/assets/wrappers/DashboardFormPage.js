@@ -2,18 +2,23 @@ import styled from 'styled-components';
 
 const Wrapper = styled.section`
   .page-header {
-    margin-bottom: 2rem;
+    margin-bottom: 3rem;
+    text-align: center;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
     
     .page-title {
-      font-size: 2rem;
-      font-weight: 600;
-      margin-bottom: 0.5rem;
-      background: linear-gradient(to right, var(--primary-500), var(--primary-700));
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+      background: linear-gradient(135deg, var(--primary-500), var(--primary-700));
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
+      letter-spacing: -0.5px;
       
       .dark-theme & {
-        background: linear-gradient(to right, var(--primary-300), var(--primary-500));
+        background: linear-gradient(135deg, var(--primary-300), var(--primary-500));
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
       }
@@ -21,17 +26,24 @@ const Wrapper = styled.section`
     
     .page-subtitle {
       color: var(--text-secondary-color);
-      font-size: 1rem;
-      margin-top: 0.25rem;
+      font-size: 1.125rem;
+      margin-top: 0.5rem;
+      line-height: 1.6;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
     }
   }
 
   .profile-card {
     background: var(--background-secondary-color);
     border-radius: var(--border-radius);
-    padding: 2rem;
+    padding: 3rem;
     box-shadow: var(--shadow-2);
-    margin-bottom: 2rem;
+    margin: 2rem 0 3rem;
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
     
     .dark-theme & {
       background: var(--dark-mode-bg-secondary-color);
@@ -43,7 +55,10 @@ const Wrapper = styled.section`
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-bottom: 2rem;
+    margin-bottom: 3rem;
+    padding: 2rem;
+    background: var(--background-color);
+    border-radius: var(--border-radius);
     
     .avatar-container {
       position: relative;
@@ -113,8 +128,8 @@ const Wrapper = styled.section`
 
   .input-group {
     display: grid;
-    gap: 1.5rem;
-    margin-bottom: 1.5rem;
+    gap: 2rem;
+    margin-bottom: 2.5rem;
     
     @media (min-width: 768px) {
       grid-template-columns: 1fr 1fr;
@@ -122,9 +137,9 @@ const Wrapper = styled.section`
   }
 
   .section-title {
-    margin: 2rem 0 1rem;
-    border-bottom: 1px solid var(--grey-100);
-    padding-bottom: 0.5rem;
+    margin: 3rem 0 1.5rem;
+    border-bottom: 2px solid var(--grey-100);
+    padding-bottom: 1rem;
     
     h3 {
       font-size: 1.25rem;
@@ -161,8 +176,11 @@ const Wrapper = styled.section`
   .skills-list {
     display: flex;
     flex-wrap: wrap;
-    gap: 0.5rem;
-    margin-top: 0.5rem;
+    gap: 0.75rem;
+    margin-top: 1rem;
+    padding: 1rem;
+    background: var(--background-color);
+    border-radius: var(--border-radius);
   }
 
   .skill-tag {
@@ -197,8 +215,11 @@ const Wrapper = styled.section`
 
   .notifications-grid {
     display: grid;
-    gap: 1rem;
-    margin: 1rem 0;
+    gap: 2rem;
+    margin: 2rem 0;
+    background: var(--background-color);
+    padding: 2rem;
+    border-radius: var(--border-radius);
     
     @media (min-width: 768px) {
       grid-template-columns: repeat(2, 1fr);
@@ -251,9 +272,9 @@ const Wrapper = styled.section`
   .btn-container {
     display: flex;
     justify-content: flex-end;
-    margin-top: 2rem;
+    margin-top: 3rem;
     padding-top: 2rem;
-    border-top: 1px solid var(--grey-100);
+    border-top: 2px solid var(--grey-100);
     
     .dark-theme & {
       border-top-color: var(--dark-mode-grey-100);
@@ -296,7 +317,7 @@ const Wrapper = styled.section`
   }
   
   .form-row {
-    margin-bottom: 1.5rem;
+    margin-bottom: 2rem;
     
     .form-label {
       display: flex;
