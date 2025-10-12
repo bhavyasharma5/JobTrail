@@ -40,10 +40,8 @@ const Wrapper = styled.section`
     border-radius: var(--border-radius);
     padding: 3rem;
     box-shadow: var(--shadow-2);
-    margin: 2rem 0 3rem;
-    max-width: 1200px;
-    margin-left: auto;
-    margin-right: auto;
+    margin: 2rem auto 3rem;
+    max-width: 800px;
     
     .dark-theme & {
       background: var(--dark-mode-bg-secondary-color);
@@ -126,25 +124,48 @@ const Wrapper = styled.section`
     }
   }
 
-  .input-group {
+  .form-grid {
     display: grid;
     gap: 2rem;
-    margin-bottom: 2.5rem;
+    margin-bottom: 3rem;
     
-    @media (min-width: 768px) {
-      grid-template-columns: 1fr 1fr;
+    @media (min-width: 640px) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .form-row {
+      margin-bottom: 0;
     }
   }
 
   .section-title {
-    margin: 3rem 0 1.5rem;
-    border-bottom: 2px solid var(--grey-100);
-    padding-bottom: 1rem;
+    margin: 4rem 0 2rem;
+    border-bottom: none;
+    padding-bottom: 0;
+    position: relative;
+    
+    &:after {
+      content: '';
+      position: absolute;
+      bottom: -1rem;
+      left: 0;
+      width: 60px;
+      height: 4px;
+      background: var(--primary-500);
+      border-radius: 2px;
+    }
     
     h3 {
-      font-size: 1.25rem;
+      font-size: 1.5rem;
       color: var(--text-color);
       font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+    
+    .section-description {
+      color: var(--text-secondary-color);
+      font-size: 0.95rem;
+      margin-top: 0.25rem;
     }
     
     .dark-theme & {
@@ -215,11 +236,12 @@ const Wrapper = styled.section`
 
   .notifications-grid {
     display: grid;
-    gap: 2rem;
+    gap: 1.5rem;
     margin: 2rem 0;
     background: var(--background-color);
     padding: 2rem;
     border-radius: var(--border-radius);
+    max-width: 600px;
     
     @media (min-width: 768px) {
       grid-template-columns: repeat(2, 1fr);
@@ -317,14 +339,14 @@ const Wrapper = styled.section`
   }
   
   .form-row {
-    margin-bottom: 2rem;
+    margin-bottom: 2.5rem;
     
     .form-label {
       display: flex;
       align-items: center;
-      gap: 0.5rem;
-      font-size: 0.875rem;
-      margin-bottom: 0.5rem;
+      gap: 0.75rem;
+      font-size: 1rem;
+      margin-bottom: 0.75rem;
       text-transform: capitalize;
       letter-spacing: 0.5px;
       color: var(--text-color);

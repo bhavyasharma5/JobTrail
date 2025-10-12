@@ -137,8 +137,9 @@ const Profile = () => {
             {/* Basic Information */}
             <div className="section-title">
               <h3>Basic Information</h3>
+              <p className="section-description">Your personal details used across your profile</p>
             </div>
-            <div className="input-group">
+            <div className="form-grid">
               <FormRow
                 type='text'
                 name='name'
@@ -153,9 +154,6 @@ const Profile = () => {
                 defaultValue={lastName}
                 icon={<FaUser />}
               />
-            </div>
-            
-            <div className="input-group">
               <FormRow
                 type='email'
                 name='email'
@@ -173,6 +171,7 @@ const Profile = () => {
             {/* Professional Information */}
             <div className="section-title">
               <h3>Professional Information</h3>
+              <p className="section-description">Showcase your professional experience and expertise</p>
             </div>
             <div className="input-group">
               <FormRow
@@ -251,6 +250,7 @@ const Profile = () => {
             {/* Social Links */}
             <div className="section-title">
               <h3>Social Links</h3>
+              <p className="section-description">Connect your professional profiles and portfolio</p>
             </div>
             <div className="input-group">
               <FormRow
@@ -284,6 +284,7 @@ const Profile = () => {
             {/* Job Preferences */}
             <div className="section-title">
               <h3>Job Preferences</h3>
+              <p className="section-description">Set your preferences for job opportunities</p>
             </div>
             <div className="input-group">
               <div className="form-row">
@@ -356,6 +357,7 @@ const Profile = () => {
             {/* Resume Upload */}
             <div className="section-title">
               <h3>Resume/CV</h3>
+              <p className="section-description">Upload your latest resume or CV</p>
             </div>
             <div className="form-row">
               <label htmlFor='resume' className='form-label'>
@@ -374,6 +376,7 @@ const Profile = () => {
             {/* Notification Preferences */}
             <div className="section-title">
               <h3>Notification Preferences</h3>
+              <p className="section-description">Manage how you receive updates and alerts</p>
             </div>
             <div className="notifications-grid">
               <div className="notification-option">
