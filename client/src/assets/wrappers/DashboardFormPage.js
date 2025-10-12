@@ -121,10 +121,143 @@ const Wrapper = styled.section`
     }
   }
 
+  .section-title {
+    margin: 2rem 0 1rem;
+    border-bottom: 1px solid var(--grey-100);
+    padding-bottom: 0.5rem;
+    
+    h3 {
+      font-size: 1.25rem;
+      color: var(--text-color);
+      font-weight: 600;
+    }
+    
+    .dark-theme & {
+      border-bottom-color: var(--dark-mode-grey-100);
+    }
+  }
+
+  .form-textarea {
+    width: 100%;
+    padding: 0.75rem;
+    border-radius: var(--border-radius);
+    background: var(--background-secondary-color);
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    color: var(--text-color);
+    resize: vertical;
+    min-height: 100px;
+    font-family: inherit;
+    
+    &:focus {
+      border-color: var(--primary-300);
+      box-shadow: 0 0 0 3px rgba(var(--primary-rgb), 0.1);
+    }
+  }
+
+  .skills-input-container {
+    margin-bottom: 0.5rem;
+  }
+
+  .skills-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+  }
+
+  .skill-tag {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.25rem 0.75rem;
+    background: var(--primary-100);
+    color: var(--primary-700);
+    border-radius: 9999px;
+    font-size: 0.875rem;
+    
+    .dark-theme & {
+      background: var(--primary-900);
+      color: var(--primary-100);
+    }
+    
+    .remove-skill {
+      background: none;
+      border: none;
+      color: inherit;
+      margin-left: 0.5rem;
+      cursor: pointer;
+      padding: 0 0.25rem;
+      font-size: 1.25rem;
+      line-height: 1;
+      
+      &:hover {
+        opacity: 0.7;
+      }
+    }
+  }
+
+  .notifications-grid {
+    display: grid;
+    gap: 1rem;
+    margin: 1rem 0;
+    
+    @media (min-width: 768px) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  .notification-option {
+    .toggle-label {
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+      user-select: none;
+      
+      input[type="checkbox"] {
+        display: none;
+        
+        &:checked + .toggle-slider {
+          background: var(--primary-500);
+          
+          &:before {
+            transform: translateX(1.25rem);
+          }
+        }
+      }
+      
+      .toggle-slider {
+        position: relative;
+        width: 2.5rem;
+        height: 1.25rem;
+        background: var(--grey-200);
+        border-radius: 9999px;
+        margin-right: 0.75rem;
+        transition: background-color 0.2s;
+        
+        &:before {
+          content: "";
+          position: absolute;
+          width: 1rem;
+          height: 1rem;
+          background: white;
+          border-radius: 50%;
+          top: 0.125rem;
+          left: 0.125rem;
+          transition: transform 0.2s;
+        }
+      }
+    }
+  }
+
   .btn-container {
     display: flex;
     justify-content: flex-end;
     margin-top: 2rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--grey-100);
+    
+    .dark-theme & {
+      border-top-color: var(--dark-mode-grey-100);
+    }
     
     .btn {
       min-width: 150px;

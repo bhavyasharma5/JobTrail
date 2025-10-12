@@ -4,7 +4,21 @@ import { useOutletContext, redirect } from 'react-router-dom';
 import { Form } from 'react-router-dom';
 import customFetch from '../utils/customFetch';
 import { toast } from 'react-toastify';
-import { FaUser, FaEnvelope, FaMapMarkerAlt, FaCamera } from 'react-icons/fa';
+import { 
+  FaUser, 
+  FaEnvelope, 
+  FaMapMarkerAlt, 
+  FaCamera, 
+  FaBriefcase, 
+  FaGraduationCap,
+  FaCode,
+  FaLinkedin,
+  FaGithub,
+  FaGlobe,
+  FaFileUpload,
+  FaBell,
+  FaRupeeSign
+} from 'react-icons/fa';
 import { useState } from 'react';
 
 export const action =
@@ -29,8 +43,43 @@ export const action =
 
 const Profile = () => {
   const { user } = useOutletContext();
-  const { name, lastName, email, location } = user;
+  const { 
+    name, 
+    lastName, 
+    email, 
+    location,
+    jobTitle = '',
+    skills = [],
+    experienceLevel = 'Fresher',
+    bio = '',
+    linkedin = '',
+    github = '',
+    portfolio = '',
+    preferredJobType = 'Full-time',
+    preferredWorkMode = 'Hybrid',
+    expectedSalary = { min: 0, max: 0, currency: 'INR' },
+    notifications = {
+      emailAlerts: true,
+      applicationUpdates: true,
+      jobRecommendations: true,
+      marketingEmails: false,
+    }
+  } = user;
+  
   const [previewImage, setPreviewImage] = useState(null);
+  const [skillInput, setSkillInput] = useState('');
+  const [skillsList, setSkillsList] = useState(skills);
+  
+  const handleAddSkill = () => {
+    if (skillInput.trim() && !skillsList.includes(skillInput.trim())) {
+      setSkillsList([...skillsList, skillInput.trim()]);
+      setSkillInput('');
+    }
+  };
+  
+  const handleRemoveSkill = (skillToRemove) => {
+    setSkillsList(skillsList.filter(skill => skill !== skillToRemove));
+  };
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
@@ -85,6 +134,10 @@ const Profile = () => {
           </div>
 
           <div className='form-center'>
+            {/* Basic Information */}
+            <div className="section-title">
+              <h3>Basic Information</h3>
+            </div>
             <div className="input-group">
               <FormRow
                 type='text'
@@ -115,6 +168,258 @@ const Profile = () => {
                 defaultValue={location}
                 icon={<FaMapMarkerAlt />}
               />
+            </div>
+
+            {/* Professional Information */}
+            <div className="section-title">
+              <h3>Professional Information</h3>
+            </div>
+            <div className="input-group">
+              <FormRow
+                type='text'
+                name='jobTitle'
+                labelText='job title'
+                defaultValue={jobTitle}
+                icon={<FaBriefcase />}
+              />
+              <div className="form-row">
+                <label htmlFor='experienceLevel' className='form-label'>
+                  <span className="icon"><FaGraduationCap /></span>
+                  experience level
+                </label>
+                <select
+                  name='experienceLevel'
+                  id='experienceLevel'
+                  className='form-select'
+                  defaultValue={experienceLevel}
+                >
+                  <option value='Fresher'>Fresher</option>
+                  <option value='1-3 years'>1-3 years</option>
+                  <option value='3-5 years'>3-5 years</option>
+                  <option value='5-10 years'>5-10 years</option>
+                  <option value='10+ years'>10+ years</option>
+                </select>
+              </div>
+            </div>
+
+            <div className="form-row">
+              <label htmlFor='bio' className='form-label'>
+                professional summary
+              </label>
+              <textarea
+                name='bio'
+                id='bio'
+                className='form-textarea'
+                defaultValue={bio}
+                maxLength={500}
+                rows={4}
+                placeholder="Write a brief professional summary..."
+              />
+            </div>
+
+            <div className="form-row">
+              <label className='form-label'>
+                <span className="icon"><FaCode /></span>
+                skills
+              </label>
+              <div className="skills-input-container">
+                <input
+                  type="text"
+                  value={skillInput}
+                  onChange={(e) => setSkillInput(e.target.value)}
+                  onKeyPress={(e) => e.key === 'Enter' && handleAddSkill()}
+                  className="form-input"
+                  placeholder="Add a skill and press Enter"
+                />
+              </div>
+              <div className="skills-list">
+                {skillsList.map((skill, index) => (
+                  <span key={index} className="skill-tag">
+                    {skill}
+                    <button
+                      type="button"
+                      onClick={() => handleRemoveSkill(skill)}
+                      className="remove-skill"
+                    >
+                      ×
+                    </button>
+                  </span>
+                ))}
+              </div>
+            </div>
+
+            {/* Social Links */}
+            <div className="section-title">
+              <h3>Social Links</h3>
+            </div>
+            <div className="input-group">
+              <FormRow
+                type='url'
+                name='linkedin'
+                labelText='linkedin profile'
+                defaultValue={linkedin}
+                icon={<FaLinkedin />}
+                placeholder="https://linkedin.com/in/username"
+              />
+              <FormRow
+                type='url'
+                name='github'
+                labelText='github profile'
+                defaultValue={github}
+                icon={<FaGithub />}
+                placeholder="https://github.com/username"
+              />
+            </div>
+            <div className="input-group">
+              <FormRow
+                type='url'
+                name='portfolio'
+                labelText='portfolio website'
+                defaultValue={portfolio}
+                icon={<FaGlobe />}
+                placeholder="https://yourportfolio.com"
+              />
+            </div>
+
+            {/* Job Preferences */}
+            <div className="section-title">
+              <h3>Job Preferences</h3>
+            </div>
+            <div className="input-group">
+              <div className="form-row">
+                <label htmlFor='preferredJobType' className='form-label'>
+                  preferred job type
+                </label>
+                <select
+                  name='preferredJobType'
+                  id='preferredJobType'
+                  className='form-select'
+                  defaultValue={preferredJobType}
+                >
+                  <option value='Full-time'>Full-time</option>
+                  <option value='Part-time'>Part-time</option>
+                  <option value='Contract'>Contract</option>
+                  <option value='Internship'>Internship</option>
+                  <option value='Remote'>Remote</option>
+                </select>
+              </div>
+              <div className="form-row">
+                <label htmlFor='preferredWorkMode' className='form-label'>
+                  preferred work mode
+                </label>
+                <select
+                  name='preferredWorkMode'
+                  id='preferredWorkMode'
+                  className='form-select'
+                  defaultValue={preferredWorkMode}
+                >
+                  <option value='Remote'>Remote</option>
+                  <option value='Hybrid'>Hybrid</option>
+                  <option value='On-site'>On-site</option>
+                </select>
+              </div>
+            </div>
+
+            <div className="input-group">
+              <div className="form-row">
+                <label htmlFor='expectedSalaryMin' className='form-label'>
+                  <span className="icon"><FaRupeeSign /></span>
+                  minimum expected salary (annual)
+                </label>
+                <input
+                  type='number'
+                  name='expectedSalaryMin'
+                  id='expectedSalaryMin'
+                  className='form-input'
+                  defaultValue={expectedSalary.min}
+                  min="0"
+                  step="10000"
+                />
+              </div>
+              <div className="form-row">
+                <label htmlFor='expectedSalaryMax' className='form-label'>
+                  <span className="icon"><FaRupeeSign /></span>
+                  maximum expected salary (annual)
+                </label>
+                <input
+                  type='number'
+                  name='expectedSalaryMax'
+                  id='expectedSalaryMax'
+                  className='form-input'
+                  defaultValue={expectedSalary.max}
+                  min="0"
+                  step="10000"
+                />
+              </div>
+            </div>
+
+            {/* Resume Upload */}
+            <div className="section-title">
+              <h3>Resume/CV</h3>
+            </div>
+            <div className="form-row">
+              <label htmlFor='resume' className='form-label'>
+                <span className="icon"><FaFileUpload /></span>
+                upload resume (PDF only, max 2MB)
+              </label>
+              <input
+                type='file'
+                id='resume'
+                name='resume'
+                className='form-input'
+                accept='.pdf'
+              />
+            </div>
+
+            {/* Notification Preferences */}
+            <div className="section-title">
+              <h3>Notification Preferences</h3>
+            </div>
+            <div className="notifications-grid">
+              <div className="notification-option">
+                <label className="toggle-label">
+                  <input
+                    type="checkbox"
+                    name="emailAlerts"
+                    defaultChecked={notifications.emailAlerts}
+                  />
+                  <span className="toggle-slider"></span>
+                  Email Alerts
+                </label>
+              </div>
+              <div className="notification-option">
+                <label className="toggle-label">
+                  <input
+                    type="checkbox"
+                    name="applicationUpdates"
+                    defaultChecked={notifications.applicationUpdates}
+                  />
+                  <span className="toggle-slider"></span>
+                  Application Updates
+                </label>
+              </div>
+              <div className="notification-option">
+                <label className="toggle-label">
+                  <input
+                    type="checkbox"
+                    name="jobRecommendations"
+                    defaultChecked={notifications.jobRecommendations}
+                  />
+                  <span className="toggle-slider"></span>
+                  Job Recommendations
+                </label>
+              </div>
+              <div className="notification-option">
+                <label className="toggle-label">
+                  <input
+                    type="checkbox"
+                    name="marketingEmails"
+                    defaultChecked={notifications.marketingEmails}
+                  />
+                  <span className="toggle-slider"></span>
+                  Marketing Emails
+                </label>
+              </div>
             </div>
 
             <div className="btn-container">
