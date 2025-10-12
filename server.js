@@ -29,22 +29,7 @@ if (process.env.NODE_ENV === 'development') {
 
 // CORS configuration - Must be first!
 app.use(cors({
-  origin: function(origin, callback) {
-    // Allow requests with no origin (like mobile apps or curl requests)
-    if (!origin) return callback(null, true);
-    
-    // Allow localhost and any Vercel deployment URL
-    if (
-      origin.startsWith('http://localhost:') ||
-      origin.includes('vercel.app') ||
-      origin === 'https://job-trail-mu.vercel.app'
-    ) {
-      callback(null, true);
-    } else {
-      console.log('Blocked origin:', origin);
-      callback(new Error('Not allowed by CORS'));
-    }
-  },
+  origin: true, // Allow all origins temporarily for debugging
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization', 'Cookie', 'X-Requested-With', 'Accept'],

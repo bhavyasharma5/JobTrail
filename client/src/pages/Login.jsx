@@ -33,8 +33,7 @@ const Login = () => {
     try {
       await customFetch.post('/auth/login', data);
       toast.success('Take a test drive');
-      // Clear any stale states
-      localStorage.removeItem('lastLocation');
+      // Use React Router's redirect
       window.location.href = '/dashboard';
     } catch (error) {
       toast.error(error?.response?.data?.msg);
@@ -79,7 +78,7 @@ const Login = () => {
       </div>
       
       <div className="form-side">
-        <Form method='post' className='form' action='/login' onSubmit={(e) => {
+        <Form method='post' className='form' onSubmit={(e) => {
           // Add client-side form processing
           const formData = new FormData(e.target);
           const email = formData.get('email');
