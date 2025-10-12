@@ -61,6 +61,10 @@ export const login = async (req, res) => {
         role: user.role,
       }
     });
+  } catch (error) {
+    console.error('Login error:', error);
+    throw error;
+  }
 };
 
 export const logout = (req, res) => {
