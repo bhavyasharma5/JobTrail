@@ -1,12 +1,13 @@
 import PropTypes from 'prop-types';
 import INDIAN_CITIES from '../utils/indianCities';
 
-const FormRow = ({ type, name, labelText, defaultValue, onChange, list, placeholder }) => {
+const FormRow = ({ type, name, labelText, defaultValue, onChange, list, placeholder, icon }) => {
   const locations = INDIAN_CITIES;
 
   return (
     <div className='form-row'>
       <label htmlFor={name} className='form-label'>
+        {icon && <span className="icon">{icon}</span>}
         {labelText || name}
       </label>
       <input
@@ -40,6 +41,7 @@ FormRow.propTypes = {
   onChange: PropTypes.func,
   list: PropTypes.string,
   placeholder: PropTypes.string,
+  icon: PropTypes.node,
 };
 
 export default FormRow;

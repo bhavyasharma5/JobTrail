@@ -4,6 +4,8 @@ import { useOutletContext, redirect } from 'react-router-dom';
 import { Form } from 'react-router-dom';
 import customFetch from '../utils/customFetch';
 import { toast } from 'react-toastify';
+import { FaUser, FaEnvelope, FaMapMarkerAlt, FaCamera } from 'react-icons/fa';
+import { useState } from 'react';
 
 export const action =
   (queryClient) =>
@@ -27,36 +29,98 @@ export const action =
 
 const Profile = () => {
   const { user } = useOutletContext();
-
   const { name, lastName, email, location } = user;
+  const [previewImage, setPreviewImage] = useState(null);
+
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      if (file.size > 500000) {
+        toast.error('Image size should be less than 500KB');
+        e.target.value = '';
+        return;
+      }
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setPreviewImage(reader.result);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
 
   return (
     <Wrapper>
+      <div className="page-header">
+        <h1 className="page-title">Profile Settings</h1>
+        <p className="page-subtitle">Manage your personal information and preferences</p>
+      </div>
+
       <Form method='post' className='form' encType='multipart/form-data'>
-        <h4 className='form-title'>profile</h4>
-        <div className='form-center'>
-          <div className='form-row'>
-            <label htmlFor='avatar' className='form-label'>
-              Select an image file (max 0.5 MB)
-            </label>
-            <input
-              type='file'
-              id='avatar'
-              name='avatar'
-              className='form-input'
-              accept='image/*'
-            />
+        <div className="profile-card">
+          <div className="avatar-section">
+            <div className="avatar-container">
+              {previewImage ? (
+                <img src={previewImage} alt="Profile preview" className="avatar-preview" />
+              ) : (
+                <div className="avatar-placeholder">
+                  <FaUser />
+                </div>
+              )}
+              <div className="avatar-overlay">
+                <label htmlFor="avatar" className="avatar-upload-label">
+                  <FaCamera />
+                  <span>Change Photo</span>
+                </label>
+                <input
+                  type="file"
+                  id="avatar"
+                  name="avatar"
+                  onChange={handleImageChange}
+                  accept="image/*"
+                  className="avatar-input"
+                />
+              </div>
+            </div>
+            <p className="avatar-help">Max file size: 500KB</p>
           </div>
-          <FormRow type='text' name='name' defaultValue={name} />
-          <FormRow
-            type='text'
-            name='lastName'
-            labelText='last name'
-            defaultValue={lastName}
-          />
-          <FormRow type='email' name='email' defaultValue={email} />
-          <FormRow type='text' name='location' defaultValue={location} />
-          <SubmitBtn formBtn />
+
+          <div className='form-center'>
+            <div className="input-group">
+              <FormRow
+                type='text'
+                name='name'
+                defaultValue={name}
+                labelText='first name'
+                icon={<FaUser />}
+              />
+              <FormRow
+                type='text'
+                name='lastName'
+                labelText='last name'
+                defaultValue={lastName}
+                icon={<FaUser />}
+              />
+            </div>
+            
+            <div className="input-group">
+              <FormRow
+                type='email'
+                name='email'
+                defaultValue={email}
+                icon={<FaEnvelope />}
+              />
+              <FormRow
+                type='text'
+                name='location'
+                defaultValue={location}
+                icon={<FaMapMarkerAlt />}
+              />
+            </div>
+
+            <div className="btn-container">
+              <SubmitBtn formBtn text="Save Changes" />
+            </div>
+          </div>
         </div>
       </Form>
     </Wrapper>
