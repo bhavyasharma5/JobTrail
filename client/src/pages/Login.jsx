@@ -33,7 +33,7 @@ const Login = () => {
     try {
       await customFetch.post('/auth/login', data);
       toast.success('Take a test drive');
-      // Use React Router's redirect
+      queryClient.invalidateQueries(['user']);
       window.location.href = '/dashboard';
     } catch (error) {
       toast.error(error?.response?.data?.msg);
@@ -78,18 +78,27 @@ const Login = () => {
       </div>
       
       <div className="form-side">
-        <Form method='post' className='form' onSubmit={(e) => {
-          // Add client-side form processing
-          const formData = new FormData(e.target);
-          const email = formData.get('email');
-          const password = formData.get('password');
-          
-          if (!email || !password) {
-            e.preventDefault();
-            toast.error('Please fill in all fields');
-            return;
-          }
-        }}>
+        <Form 
+          method='post' 
+          className='form' 
+          action='/login'
+          onSubmit={(e) => {
+            const formData = new FormData(e.target);
+            const email = formData.get('email');
+            const password = formData.get('password');
+            
+            if (!email || !password) {
+              e.preventDefault();
+              toast.error('Please fill in all fields');
+              return;
+            }
+          }}
+          onKeyDown={(e) => {
+            if (e.key === 'Enter') {
+              e.preventDefault();
+              e.currentTarget.dispatchEvent(new Event('submit', { cancelable: true, bubbles: true }));
+            }
+          }}>
           <Logo />
           <h4 className="form-title">Welcome Back</h4>
           <p className="form-subtitle">Sign in to continue your job search journey</p>

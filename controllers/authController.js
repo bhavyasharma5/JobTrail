@@ -22,25 +22,45 @@ export const register = async (req, res) => {
   }
 };
 export const login = async (req, res) => {
-  const user = await User.findOne({ email: req.body.email });
+  try {
+    console.log('Login attempt:', { email: req.body.email });
+    
+    if (!req.body.email || !req.body.password) {
+      throw new UnauthenticatedError('Please provide email and password');
+    }
 
-  const isValidUser =
-    user && (await comparePassword(req.body.password, user.password));
+    const user = await User.findOne({ email: req.body.email });
+    console.log('User found:', user ? 'yes' : 'no');
 
-  if (!isValidUser) throw new UnauthenticatedError('invalid credentials');
+    const isValidUser =
+      user && (await comparePassword(req.body.password, user.password));
+    console.log('Password valid:', isValidUser ? 'yes' : 'no');
 
-  const token = createJWT({ userId: user._id, role: user.role });
+    if (!isValidUser) throw new UnauthenticatedError('invalid credentials');
 
-  const oneDay = 1000 * 60 * 60 * 24;
+    const token = createJWT({ userId: user._id, role: user.role });
+    console.log('JWT created successfully');
 
-  res.cookie('token', token, {
-    httpOnly: true,
-    expires: new Date(Date.now() + oneDay),
-    secure: true,
-    sameSite: 'none',
-    path: '/',
-  });
-  res.status(StatusCodes.OK).json({ msg: 'user logged in' });
+    const oneDay = 1000 * 60 * 60 * 24;
+
+    res.cookie('token', token, {
+      httpOnly: true,
+      expires: new Date(Date.now() + oneDay),
+      secure: true,
+      sameSite: 'none',
+      path: '/',
+      domain: process.env.NODE_ENV === 'production' ? '.onrender.com' : undefined,
+    });
+    
+    console.log('Cookie set successfully');
+    res.status(StatusCodes.OK).json({ 
+      msg: 'user logged in',
+      user: {
+        name: user.name,
+        email: user.email,
+        role: user.role,
+      }
+    });
 };
 
 export const logout = (req, res) => {
