@@ -3,7 +3,15 @@ import Wrapper from '../assets/wrappers/ProfilePage';
 import { useOutletContext, redirect, Form } from 'react-router-dom';
 import customFetch from '../utils/customFetch';
 import { toast } from 'react-toastify';
-import { FaCamera, FaPencilAlt } from 'react-icons/fa';
+import { 
+  FaCamera, 
+  FaPencilAlt, 
+  FaGithub, 
+  FaLinkedin, 
+  FaGlobe, 
+  FaFileUpload, 
+  FaExternalLinkAlt 
+} from 'react-icons/fa';
 import { useState } from 'react';
 
 export const action =
@@ -32,7 +40,10 @@ const Profile = () => {
     name = '', 
     lastName = '', 
     email = '',
-    gender = '',
+    github = '',
+    linkedin = '',
+    portfolio = '',
+    resume = null,
     country = '',
     language = '',
     timezone = '',
@@ -111,25 +122,96 @@ const Profile = () => {
                 defaultValue={name}
                 disabled={!isEditing}
               />
-              <FormRow
-                type='text'
-                name='lastName'
-                labelText='Nick Name'
-                defaultValue={lastName}
-                disabled={!isEditing}
-              />
-              <div className="form-row">
-                <label>Gender</label>
-                <select 
-                  name="gender" 
-                  defaultValue={gender}
-                  disabled={!isEditing}
-                >
-                  <option value="">Select Gender</option>
-                  <option value="male">Male</option>
-                  <option value="female">Female</option>
-                  <option value="other">Other</option>
-                </select>
+              <div className="social-links-section">
+                <h3>Professional Links</h3>
+                <div className="social-link">
+                  <FaGithub className="social-icon" />
+                  <FormRow
+                    type='url'
+                    name='github'
+                    labelText='GitHub Profile'
+                    defaultValue={github}
+                    disabled={!isEditing}
+                    placeholder="https://github.com/username"
+                  />
+                  {github && (
+                    <a href={github} target="_blank" rel="noopener noreferrer" className="visit-link">
+                      <FaExternalLinkAlt />
+                    </a>
+                  )}
+                </div>
+                <div className="social-link">
+                  <FaLinkedin className="social-icon" />
+                  <FormRow
+                    type='url'
+                    name='linkedin'
+                    labelText='LinkedIn Profile'
+                    defaultValue={linkedin}
+                    disabled={!isEditing}
+                    placeholder="https://linkedin.com/in/username"
+                  />
+                  {linkedin && (
+                    <a href={linkedin} target="_blank" rel="noopener noreferrer" className="visit-link">
+                      <FaExternalLinkAlt />
+                    </a>
+                  )}
+                </div>
+                <div className="social-link">
+                  <FaGlobe className="social-icon" />
+                  <FormRow
+                    type='url'
+                    name='portfolio'
+                    labelText='Portfolio Website'
+                    defaultValue={portfolio}
+                    disabled={!isEditing}
+                    placeholder="https://yourportfolio.com"
+                  />
+                  {portfolio && (
+                    <a href={portfolio} target="_blank" rel="noopener noreferrer" className="visit-link">
+                      <FaExternalLinkAlt />
+                    </a>
+                  )}
+                </div>
+              </div>
+              <div className="resume-section">
+                <h3>Resume</h3>
+                <div className="resume-upload">
+                  <FaFileUpload className="resume-icon" />
+                  <div className="resume-content">
+                    {resume ? (
+                      <>
+                        <p className="resume-name">{resume.name}</p>
+                        <span className="resume-date">Uploaded on {new Date(resume.uploadDate).toLocaleDateString()}</span>
+                      </>
+                    ) : (
+                      <p className="no-resume">No resume uploaded yet</p>
+                    )}
+                  </div>
+                  {isEditing && (
+                    <label className="upload-button">
+                      Upload Resume
+                      <input
+                        type="file"
+                        name="resume"
+                        accept=".pdf,.doc,.docx"
+                        className="hidden"
+                        onChange={(e) => {
+                          const file = e.target.files[0];
+                          if (file && file.size > 5 * 1024 * 1024) {
+                            toast.error('Resume size should be less than 5MB');
+                            e.target.value = '';
+                            return;
+                          }
+                        }}
+                      />
+                    </label>
+                  )}
+                  {resume && (
+                    <a href={resume.url} target="_blank" rel="noopener noreferrer" className="view-resume">
+                      View Resume
+                    </a>
+                  )}
+                </div>
               </div>
               <div className="form-row">
                 <label>Country</label>
