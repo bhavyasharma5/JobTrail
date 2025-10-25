@@ -12,7 +12,7 @@
       "position": "Frontend Developer",
       "jobLocation": "San Francisco, CA",
       "jobType": "full-time",
-      "jobStatus": "technical_interview",
+      "jobStatus": "technical interview",
       "notes": "Great company culture, modern tech stack. Need to prepare system design."
     },
     {
@@ -20,7 +20,7 @@
       "position": "Full Stack Engineer",
       "jobLocation": "New York, NY",
       "jobType": "full-time",
-      "jobStatus": "hr_screening",
+      "jobStatus": "hr screening",
       "notes": "Series A startup, good growth potential. Initial call scheduled."
     },
     {
@@ -36,7 +36,7 @@
       "position": "Software Engineer",
       "jobLocation": "Remote",
       "jobType": "part-time",
-      "jobStatus": "online_assessment",
+      "jobStatus": "online assessment",
       "notes": "Need to complete coding assessment by next week."
     }
   ]
