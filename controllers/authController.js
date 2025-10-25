@@ -49,7 +49,6 @@ export const login = async (req, res) => {
       secure: true,
       sameSite: 'none',
       path: '/',
-      domain: process.env.NODE_ENV === 'production' ? '.onrender.com' : undefined,
     });
     
     console.log('Cookie set successfully');

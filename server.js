@@ -28,8 +28,20 @@ if (process.env.NODE_ENV === 'development') {
 }
 
 // CORS configuration - Must be first!
+const allowedOrigins = [
+  'https://job-trail-mu.vercel.app',
+  'https://job-trail-f1q7c4npi-bhavya-sharmas-projects-f6e9dd46.vercel.app',
+  'http://localhost:5173'
+];
+
 app.use(cors({
-  origin: true, // Allow all origins temporarily for debugging
+  origin: function(origin, callback) {
+    if (!origin || allowedOrigins.indexOf(origin) !== -1) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization', 'Cookie', 'X-Requested-With', 'Accept'],
