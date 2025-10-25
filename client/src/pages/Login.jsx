@@ -1,4 +1,4 @@
-import { Link, Form, redirect } from 'react-router-dom';
+import { Link, Form, redirect, useNavigate } from 'react-router-dom';
 import { useQueryClient } from '@tanstack/react-query';
 import Wrapper from '../assets/wrappers/RegisterAndLoginPage';
 import { FormRow, Logo, SubmitBtn } from '../components';
@@ -26,6 +26,7 @@ export const action =
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
   const queryClient = useQueryClient();
+  const navigate = useNavigate();
 
   const loginDemoUser = async () => {
     const data = {
@@ -36,7 +37,7 @@ const Login = () => {
       await customFetch.post('/auth/login', data);
       toast.success('Take a test drive');
       queryClient.invalidateQueries(['user']);
-      window.location.href = '/dashboard';
+      navigate('/dashboard');
     } catch (error) {
       toast.error(error?.response?.data?.msg);
     }
