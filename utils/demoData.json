@@ -1,0 +1,47 @@
+{
+  "user": {
+    "name": "Demo User",
+    "email": "demo@jobtrail.com",
+    "password": "demo123!@#",
+    "location": "Remote",
+    "role": "user"
+  },
+  "jobs": [
+    {
+      "company": "Tech Corp",
+      "position": "Frontend Developer",
+      "jobLocation": "San Francisco, CA",
+      "jobType": "full-time",
+      "status": "interview",
+      "jobStatus": "interview",
+      "mode": "remote"
+    },
+    {
+      "company": "Startup Inc",
+      "position": "Full Stack Engineer",
+      "jobLocation": "New York, NY",
+      "jobType": "full-time",
+      "status": "pending",
+      "jobStatus": "pending",
+      "mode": "hybrid"
+    },
+    {
+      "company": "Innovation Labs",
+      "position": "React Developer",
+      "jobLocation": "Austin, TX",
+      "jobType": "contract",
+      "status": "declined",
+      "jobStatus": "declined",
+      "mode": "on-site"
+    },
+    {
+      "company": "Global Solutions",
+      "position": "Software Engineer",
+      "jobLocation": "Remote",
+      "jobType": "full-time",
+      "status": "pending",
+      "jobStatus": "pending",
+      "mode": "remote"
+    }
+  ]
+}
