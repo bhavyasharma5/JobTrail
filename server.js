@@ -28,31 +28,36 @@ if (process.env.NODE_ENV === 'development') {
 }
 
 // CORS configuration - Must be first!
-const allowedOrigins = [
-  'https://job-trail-mu.vercel.app',
-  'https://job-trail-f1q7c4npi-bhavya-sharmas-projects-f6e9dd46.vercel.app',
-  'https://job-trail-5fytt2qo7-bhavya-sharmas-projects-f6e9dd46.vercel.app',
-  'http://localhost:5173'
-];
+// Production URL is the primary frontend domain
+const PRODUCTION_URL = 'https://job-trail-mu.vercel.app';
+
+// Define allowed origins based on environment
+const allowedOrigins = process.env.NODE_ENV === 'production' 
+  ? [PRODUCTION_URL]  // Only allow main production URL in production
+  : [
+      PRODUCTION_URL,
+      'http://localhost:5173',
+      'http://localhost:3000'
+    ];
 
 app.use(cors({
   origin: function(origin, callback) {
     // Allow requests with no origin (like mobile apps or curl requests)
     if (!origin) return callback(null, true);
     
-    // Allow localhost and specific domains
+    // In development, also allow Vercel preview deployments
+    if (process.env.NODE_ENV !== 'production' && origin?.includes('vercel.app')) {
+      return callback(null, true);
+    }
+    
+    // Check against allowedOrigins list
     if (allowedOrigins.indexOf(origin) !== -1) {
       return callback(null, true);
     }
     
-    // Allow all Vercel preview deployments
-    if (origin.match(/https:\/\/job-trail-.*\.vercel\.app$/)) {
-      return callback(null, true);
-    }
-    
-    // Allow localhost in development
-    if (process.env.NODE_ENV === 'development' && origin.startsWith('http://localhost')) {
-      return callback(null, true);
+    // Log unauthorized attempts in production
+    if (process.env.NODE_ENV === 'production') {
+      console.warn(`Unauthorized access attempt from origin: ${origin}`);
     }
     
     callback(new Error('Not allowed by CORS'));
