@@ -99,7 +99,7 @@ const DashboardLayout = ({ queryClient }) => {
   useEffect(() => {
     if (!user && !isLoading && (isAuthError || isError)) {
       console.log('No authenticated user found, redirecting to login');
-      navigate('/');
+      navigate('/login');
     }
   }, [user, isLoading, isAuthError, isError, navigate]);
 
@@ -107,8 +107,13 @@ const DashboardLayout = ({ queryClient }) => {
     return <Loading />;
   }
 
-  if (!user) {
+  if (!user && !isError) {
     return <Loading />;
+  }
+
+  if (!user && isError) {
+    navigate('/login');
+    return null;
   }
 
   return (

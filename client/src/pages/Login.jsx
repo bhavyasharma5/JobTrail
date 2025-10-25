@@ -1,4 +1,5 @@
 import { Link, Form, redirect } from 'react-router-dom';
+import { useQueryClient } from '@tanstack/react-query';
 import Wrapper from '../assets/wrappers/RegisterAndLoginPage';
 import { FormRow, Logo, SubmitBtn } from '../components';
 import customFetch from '../utils/customFetch';
@@ -24,6 +25,7 @@ export const action =
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
+  const queryClient = useQueryClient();
 
   const loginDemoUser = async () => {
     const data = {
