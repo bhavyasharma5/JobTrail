@@ -31,16 +31,31 @@ if (process.env.NODE_ENV === 'development') {
 const allowedOrigins = [
   'https://job-trail-mu.vercel.app',
   'https://job-trail-f1q7c4npi-bhavya-sharmas-projects-f6e9dd46.vercel.app',
+  'https://job-trail-5fytt2qo7-bhavya-sharmas-projects-f6e9dd46.vercel.app',
   'http://localhost:5173'
 ];
 
 app.use(cors({
   origin: function(origin, callback) {
-    if (!origin || allowedOrigins.indexOf(origin) !== -1) {
-      callback(null, true);
-    } else {
-      callback(new Error('Not allowed by CORS'));
+    // Allow requests with no origin (like mobile apps or curl requests)
+    if (!origin) return callback(null, true);
+    
+    // Allow localhost and specific domains
+    if (allowedOrigins.indexOf(origin) !== -1) {
+      return callback(null, true);
     }
+    
+    // Allow all Vercel preview deployments
+    if (origin.match(/https:\/\/job-trail-.*\.vercel\.app$/)) {
+      return callback(null, true);
+    }
+    
+    // Allow localhost in development
+    if (process.env.NODE_ENV === 'development' && origin.startsWith('http://localhost')) {
+      return callback(null, true);
+    }
+    
+    callback(new Error('Not allowed by CORS'));
   },
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
