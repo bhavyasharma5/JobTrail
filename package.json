@@ -6,6 +6,7 @@
   "type": "module",
   "scripts": {
     "setup-project": "npm i && cd client && npm i",
+    "setup-demo": "node utils/setupDemo.js",
     "server": "nodemon server",
     "server-demo": "nodemon server-demo",
     "client": "cd client && npm run dev",

@@ -1,7 +1,12 @@
 import { readFile } from 'fs/promises';
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
+import { fileURLToPath } from 'url';
+import { dirname, join } from 'path';
 dotenv.config();
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 import Job from '../models/JobModel.js';
 import User from '../models/UserModel.js';
@@ -13,7 +18,7 @@ async function setupDemoUser() {
     
     // Read demo data
     const demoData = JSON.parse(
-      await readFile(new URL('./demoData.json', import.meta.url))
+      await readFile(join(__dirname, 'demoData.json'), 'utf8')
     );
 
     // Create or update demo user
