@@ -12,36 +12,32 @@
       "position": "Frontend Developer",
       "jobLocation": "San Francisco, CA",
       "jobType": "full-time",
-      "status": "interview",
-      "jobStatus": "interview",
-      "mode": "remote"
+      "jobStatus": "technical_interview",
+      "notes": "Great company culture, modern tech stack. Need to prepare system design."
     },
     {
       "company": "Startup Inc",
       "position": "Full Stack Engineer",
       "jobLocation": "New York, NY",
       "jobType": "full-time",
-      "status": "pending",
-      "jobStatus": "pending",
-      "mode": "hybrid"
+      "jobStatus": "hr_screening",
+      "notes": "Series A startup, good growth potential. Initial call scheduled."
     },
     {
       "company": "Innovation Labs",
       "position": "React Developer",
       "jobLocation": "Austin, TX",
-      "jobType": "contract",
-      "status": "declined",
+      "jobType": "internship",
       "jobStatus": "declined",
-      "mode": "on-site"
+      "notes": "Position filled internally. Good interview experience though."
     },
     {
       "company": "Global Solutions",
       "position": "Software Engineer",
       "jobLocation": "Remote",
-      "jobType": "full-time",
-      "status": "pending",
-      "jobStatus": "pending",
-      "mode": "remote"
+      "jobType": "part-time",
+      "jobStatus": "online_assessment",
+      "notes": "Need to complete coding assessment by next week."
     }
   ]
 }
