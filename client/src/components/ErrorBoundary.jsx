@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import Wrapper from '../assets/wrappers/ErrorPage';
 import img from '../assets/images/not-found.svg';
 
-class ErrorBoundary extends Component {
+export default class ErrorBoundary extends Component {
   constructor(props) {
     super(props);
     this.state = { hasError: false, error: null, errorInfo: null };
