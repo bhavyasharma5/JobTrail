@@ -97,14 +97,22 @@ app.use('/api/v1/auth', authRouter);
 
 // Serve static files from React app in production
 if (process.env.NODE_ENV === 'production') {
+  // Serve static files
   app.use(express.static(path.join(__dirname, 'client/dist')));
   
-  app.get('*', (req, res) => {
+  // Handle client-side routing
+  app.get('/*', (req, res) => {
     res.sendFile(path.join(__dirname, 'client/dist', 'index.html'));
   });
 } else {
-  app.use('*', (req, res) => {
-    res.status(404).json({ msg: 'not found' });
+  // In development, handle API 404s but allow client-side routing
+  app.use('/api/*', (req, res) => {
+    res.status(404).json({ msg: 'API endpoint not found' });
+  });
+  
+  // Forward all other requests to React app
+  app.get('*', (req, res) => {
+    res.redirect('http://localhost:5173' + req.path);
   });
 }
 

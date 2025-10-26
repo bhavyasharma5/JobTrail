@@ -1,5 +1,6 @@
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import ErrorBoundary from './components/ErrorBoundary';
 
 import {
   HomeLayout,
@@ -44,7 +45,28 @@ const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
       staleTime: 1000 * 60 * 5,
+      retry: (failureCount, error) => {
+        // Don't retry on 404s or auth errors
+        if (error?.response?.status === 404 || error?.response?.status === 401 || error?.response?.status === 403) {
+          return false;
+        }
+        // Retry up to 2 times for other errors
+        return failureCount < 2;
+      },
+      retryDelay: (attemptIndex) => Math.min(1000 * 2 ** attemptIndex, 30000),
+      refetchOnWindowFocus: false, // Disable automatic refetch on window focus
+      onError: (error) => {
+        console.error('Query error:', error);
+        // You can add global error handling here, like showing a toast notification
+      }
     },
+    mutations: {
+      retry: false, // Don't retry mutations by default
+      onError: (error) => {
+        console.error('Mutation error:', error);
+        // You can add global error handling here, like showing a toast notification
+      }
+    }
   },
 });
 
@@ -60,62 +82,149 @@ const router = createBrowserRouter([
       {
         index: true,
         element: <Landing />,
+        errorElement: <Error />,
       },
       {
         path: 'register',
         element: <Register />,
         action: registerAction,
+        errorElement: <Error />,
       },
       {
         path: 'login',
         element: <Login />,
         action: loginAction(queryClient),
+        errorElement: <Error />,
       },
       {
         path: 'dashboard',
         element: <DashboardLayout queryClient={queryClient} />,
-        loader: dashboardLoader(queryClient),
+        loader: async (...args) => {
+          try {
+            return await dashboardLoader(queryClient)(...args);
+          } catch (error) {
+            // Handle authentication errors
+            if (error.response?.status === 401) {
+              throw new Error('Please login to access this page');
+            }
+            throw error;
+          }
+        },
+        errorElement: <Error />,
         children: [
           {
             index: true,
             element: <Dashboard />,
-            loader: dashboardPageLoader(queryClient),
+            loader: async (...args) => {
+              try {
+                return await dashboardPageLoader(queryClient)(...args);
+              } catch (error) {
+                console.error('Dashboard loader error:', error);
+                throw error;
+              }
+            },
             errorElement: <ErrorElement />,
           },
           {
             path: 'add-job',
             element: <AddJob />,
-            action: addJobAction(queryClient),
+            action: async (...args) => {
+              try {
+                return await addJobAction(queryClient)(...args);
+              } catch (error) {
+                console.error('Add job error:', error);
+                throw error;
+              }
+            },
+            errorElement: <ErrorElement />,
           },
           {
             path: 'stats',
             element: <Stats />,
-            loader: statsLoader(queryClient),
+            loader: async (...args) => {
+              try {
+                return await statsLoader(queryClient)(...args);
+              } catch (error) {
+                console.error('Stats loader error:', error);
+                throw error;
+              }
+            },
             errorElement: <ErrorElement />,
           },
           {
             path: 'all-jobs',
             element: <AllJobs />,
-            loader: allJobsLoader(queryClient),
+            loader: async (...args) => {
+              try {
+                return await allJobsLoader(queryClient)(...args);
+              } catch (error) {
+                console.error('All jobs loader error:', error);
+                throw error;
+              }
+            },
             errorElement: <ErrorElement />,
           },
           {
             path: 'profile',
             element: <Profile />,
-            action: profileAction(queryClient),
+            action: async (...args) => {
+              try {
+                return await profileAction(queryClient)(...args);
+              } catch (error) {
+                console.error('Profile action error:', error);
+                throw error;
+              }
+            },
+            errorElement: <ErrorElement />,
           },
           {
             path: 'admin',
             element: <Admin />,
-            loader: adminLoader,
+            loader: async (...args) => {
+              try {
+                return await adminLoader(...args);
+              } catch (error) {
+                if (error.response?.status === 403) {
+                  throw new Error('You do not have permission to access the admin page');
+                }
+                console.error('Admin loader error:', error);
+                throw error;
+              }
+            },
+            errorElement: <ErrorElement />,
           },
           {
             path: 'edit-job/:id',
             element: <EditJob />,
-            loader: editJobLoader(queryClient),
-            action: editJobAction(queryClient),
+            loader: async (...args) => {
+              try {
+                return await editJobLoader(queryClient)(...args);
+              } catch (error) {
+                console.error('Edit job loader error:', error);
+                throw error;
+              }
+            },
+            action: async (...args) => {
+              try {
+                return await editJobAction(queryClient)(...args);
+              } catch (error) {
+                console.error('Edit job action error:', error);
+                throw error;
+              }
+            },
+            errorElement: <ErrorElement />,
           },
-          { path: 'delete-job/:id', action: deleteJobAction(queryClient) },
+          {
+            path: 'delete-job/:id',
+            action: async (...args) => {
+              try {
+                return await deleteJobAction(queryClient)(...args);
+              } catch (error) {
+                console.error('Delete job error:', error);
+                throw error;
+              }
+            },
+          },
         ],
       },
     ],
@@ -124,9 +233,11 @@ const router = createBrowserRouter([
 
 const App = () => {
   return (
-    <QueryClientProvider client={queryClient}>
-      <RouterProvider router={router} />
-    </QueryClientProvider>
+    <ErrorBoundary>
+      <QueryClientProvider client={queryClient}>
+        <RouterProvider router={router} />
+      </QueryClientProvider>
+    </ErrorBoundary>
   );
 };
 
