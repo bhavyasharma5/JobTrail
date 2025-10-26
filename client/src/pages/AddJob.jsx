@@ -15,11 +15,19 @@ export const action =
     const data = Object.fromEntries(formData);
     try {
       await customFetch.post('/jobs', data);
-      queryClient.invalidateQueries(['jobs']);
-      toast.success('Job added successfully ');
-      return redirect('/dashboard/all-jobs');
+      // Ensure the jobs query is invalidated and refetched
+      await queryClient.invalidateQueries(['jobs']);
+      // Wait for the query to be refetched
+      await queryClient.refetchQueries(['jobs']);
+      toast.success('Job added successfully');
+      // Use replace instead of redirect to update the history stack properly
+      return redirect('/dashboard/all-jobs', { replace: true });
     } catch (error) {
-      toast.error(error?.response?.data?.msg);
+      if (error?.response?.status === 401) {
+        toast.error('Session expired. Please login again.');
+        return redirect('/login');
+      }
+      toast.error(error?.response?.data?.msg || 'Failed to add job');
       return error;
     }
   };

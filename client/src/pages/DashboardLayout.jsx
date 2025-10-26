@@ -23,11 +23,26 @@ const userQuery = {
 
 export const loader = (queryClient) => async () => {
   try {
-    const data = await queryClient.ensureQueryData(userQuery);
+    // First try to get data from cache
+    const cachedData = queryClient.getQueryData(userQuery.queryKey);
+    if (cachedData?.user) {
+      return cachedData;
+    }
+
+    // If no cached data or no user in cache, fetch fresh data
+    const data = await queryClient.fetchQuery(userQuery);
+    if (!data?.user) {
+      // If no user data, redirect to login
+      return redirect('/login', { replace: true });
+    }
     return data;
   } catch (error) {
     console.error('Dashboard loader error:', error);
-    return redirect('/');
+    if (error?.response?.status === 401) {
+      return redirect('/login', { replace: true });
+    }
+    // For other errors, redirect to home
+    return redirect('/', { replace: true });
   }
 };
 
